@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="AIAUniversalApp.Views.DriverInfoPg3"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AIAUniversalApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <local:TopNavigationBar Padding="10" VerticalAlignment="Top"/>
+        <local:LeftNavigationBar HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Segoe UI" FontWeight="SemiLight" Text="Policy Holder" FontSize="48" />
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Type in policy holder information" FontSize="24" FontFamily="Segoe UI" FontWeight="SemiLight" Padding="0,0,50,0" />
+            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Phone Number" VerticalAlignment="Center" FontSize="36" FontFamily="Segoe UI" FontWeight="SemiLight" Padding="0" />
+            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Relationship" FontSize="36" FontFamily="Segoe UI" FontWeight="SemiLight"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Safe Driving School" FontSize="36" FontFamily="Segoe UI" FontWeight="SemiLight"/>
+            <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Non-Driver" FontSize="36" FontFamily="Segoe UI" FontWeight="SemiLight"/>
+
+            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="300" Text="{Binding Phone}" />
+            <ComboBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" PlaceholderText="Mother" VerticalAlignment="Center" Padding="64,0"/>
+            <CheckBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=SafeDrivingSchool, UpdateSourceTrigger=PropertyChanged}"/>
+            <CheckBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Grid.Row ="6" Grid.Column="1" Content="Next" HorizontalAlignment="Right" Click="NextButton_Click"/>
+            <Button Grid.Row ="6" Grid.Column="1" Content="Previous" HorizontalAlignment="Left" Click="PreviousButton_Click"/>
+
+            <Button Grid.Row ="6" Grid.Column="0" Content="Add another driver" HorizontalAlignment="Left" Click="AddAnotherDriverButton_Click"/>
+
+
+
+        </Grid>
+
+    </Grid>
+</Page>

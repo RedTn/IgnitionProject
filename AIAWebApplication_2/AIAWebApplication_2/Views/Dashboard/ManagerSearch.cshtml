@@ -1,0 +1,334 @@
+﻿@model AIAWebApplication_2.Models.ManagerSearchViewModel
+@{
+	Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+	ViewBag.Title = "ManagerSearch";
+	var now = DateTime.Now.ToShortDateString();
+	double quoteAmount = 900.15;
+}
+
+<h2>Manager Search</h2>
+
+@*@Html.Raw("Submmited quotes <br>")
+	@foreach (var q in Model.Quotes)
+	{
+		@Html.Raw("Quote Id:" + q.Id + " | " + q.CustomerFirstName + " | " + q.CustomerLastName + "<br>")
+	}*@
+
+@*<input autocomplete="on" class="input form-control" id="SearchName" name="SearchName" type="text" placeholder="Name">*@
+
+<script>
+	$(document).ready(function () {
+	    var next = 1;
+	    var counter = 1;
+	    $(".add-more").click(function (e) {
+	        e.preventDefault();
+
+	        var fields = ["Id", "CustomerFirstName", "CustomerLastName", "PhoneNumber", "State"];
+	        var fieldNames = ["Quote Number", "First Name", "Last Name", "Phone Number", "State"];
+
+
+	        if (counter < 5) {
+	            var addto = "#field" + next;
+	            var addRemove = "#field" + (next);
+	            next = next + 1;
+	            counter = counter + 1;
+	            var newIn = '<select class="dropdown-list form-control" id="dropdown' + next + '">';
+	            for (var i = 0; i < fields.length; i++) {
+	                newIn = newIn + '<option value="' + fields[i] + '">' + fieldNames[i] + '</option>';
+	            }
+	            newIn = newIn + '</select>'
+                    + '<input autocomplete="on" class="input form-control" id="field'
+                    + next + '" name="field' + next + '" type="text" placeholder="Search Term">';
+	            var newInput = $(newIn);
+	            var removeBtn = '<button id="remove' + (next - 1)
+                    + '" class="btn btn-danger remove" >-</button></div><div id="field">';
+	            var removeButton = $(removeBtn);
+	            $(addto).after(newInput);
+	            $(addRemove).after(removeButton);
+	            $("#field" + next).attr('data-source', $(addto).attr('data-source'));
+	            $("#count").val(next);
+
+	            $('.remove').click(function (e) {
+	                e.preventDefault();
+	                var fieldNum = this.id.substring(6);
+	                var fieldID = "#field" + fieldNum;
+	                var dropdownID = "#dropdown" + fieldNum;
+	                $(this).remove();
+	                $(fieldID).remove();
+	                $(dropdownID).remove();
+	                counter = counter - 1;
+	            });
+	        }
+	    });
+	});
+
+	$(document).ready(function () {
+		$(".clickable-row").click(function () {
+			$("#myModal").modal("show");
+			var quoteId = $(this).closest('tr').find('td:eq(0)').text();
+			$("#myModalLabel").text("Quote Information for " + quoteId);
+		})
+	});
+</script>
+
+<h4>Search By:</h4>
+
+<div class="container">
+	<div class="row">
+		<input type="hidden" name="count" value="1" />
+		<div class="control-group" id="fields">
+			<div class="controls" id="profs">
+				<form class="input-append">
+					<div id="field">
+						<select class="dropdown-list form-control" id="dropdown1" name="SearchName">
+                            <option value="Id">Quote Number</option>
+                            <option value="CustomerFirstName">First Name</option>
+                            <option value="CustomerLastName">Last Name</option>
+                            <option value="PhoneNumber">Phone Number</option>
+                            <option value="State">State</option>
+						</select>
+						<input autocomplete="on" class="input form-control" id="field1" name="SearchValue" type="text" placeholder="Search Term" />
+						<button id="add" class="btn add-more" type="button">+</button>
+					</div>
+					<button id="searchSubmit" class="btn btn-default" type="button">Search</button>
+					<hr class="divider" />
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<table class="table table-striped" id="searchResult">
+		<thead>
+			<tr>
+				<th>Quote ID</th>
+				<th>Quote Date</th>
+				<th>Customer Name</th>
+				<th>Phone</th>
+				<th>State</th>
+				<th>Quote Amount</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Quotation Information</h4>
+			</div>
+			<div class="modal-body" id="myModalBody">
+				Information of quotation goes here.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var info = {};
+	var quotes = {};
+	$(document).ready(function () {
+		$("#search").toggleClass("active");
+		$("#main-menu li").click(function () {
+			$(this).toggleClass("active");
+		})
+
+		var modalContent = "";
+
+		$('#searchSubmit').click(function () {
+		    var data = {};
+		    var seen = {};
+		    var duplicate = false;
+		    $("select").each(function () {
+		        var theField = $(this).val();
+
+		        if (seen[theField]) {
+		            duplicate = true;
+		            return;
+		        }
+		        var theId = $(this).attr("id").substring(8);
+		        var theValue = $("#field" + theId).val();
+		        data[theField] = theValue;
+		        seen[theField] = true;
+		    });
+		    if (duplicate) {
+		        alert("Error: Duplicate search fields");
+		        return false;
+		    }
+			//data["Id"] = null;
+		    //data["CustomerFirstName"] = null;
+		    //data["CustomerLastName"] = null;
+		    //data["PhoneNumber"] = null;
+		    //data["State"] = null;
+			//data["Submitted"] = null;
+		    //data["Skip"] = null;
+		    //data["Take"] = null;
+			$.ajax({
+				url: "@Url.Action("ManagerSearch", "Dashboard")",
+				type: "POST",
+				dataType: "json",
+				contentType: 'application/json; charset=utf-8',
+				data: JSON.stringify(data),
+				success: function (result) {
+					info = result;
+					var searchContent;
+
+					for (var i = 0; i < info.length; i++) {
+						var date;
+						if (info[i]["SubmissionTime"] != null) {
+							date = new Date(parseInt(info[i]["SubmissionTime"].substring(6)));
+						} else {
+							date = null;
+						}
+
+						quotes[info[i]["Id"]] = {};
+						quotes[info[i]["Id"]]["CustomerSsn"] = info[i]["CustomerSsn"];
+
+						if (info[i]["CustomerDob"] != null) {
+							quotes[info[i]["Id"]]["CustomerDob"] = new Date(parseInt(info[i]["CustomerDob"].substring(6)));
+						} else {
+							quotes[info[i]["Id"]]["CustomerDob"] = "";
+						}
+
+						quotes[info[i]["Id"]]["CustomerAddress"] = info[i]["CustomerAddress"];
+						quotes[info[i]["Id"]]["PreviousCarrier"] = info[i]["PreviousCarrier"];
+						quotes[info[i]["Id"]]["ClaimInLastFive"] = info[i]["ClaimInLastFive"];
+						quotes[info[i]["Id"]]["MovingViolation"] = info[i]["MovingViolation"];
+						quotes[info[i]["Id"]]["ForceMultiDiscount"] = info[i]["ForceMultiDiscount"];
+
+						searchContent = searchContent + "<tr class='clickable-row'>"
+                            + "<td>" + info[i]["Id"] + "</td>"
+                            + "<td>";
+
+						if (date == null) {
+							searchContent = searchContent + "</td>"
+						} else {
+							searchContent = searchContent
+                                + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + "</td>"
+						}
+
+						searchContent = searchContent
+                            + "<td>" + info[i]["CustomerFirstName"] + " " + info[i]["CustomerLastName"] + "</td>"
+                            + "<td>" + info[i]["CustomerPhone"] + "</td>"
+                            + "<td>" + info[i]["State"] + "</td>"
+                            + "<td> $" + info[i]["Price"] + "</td>"
+                            + "</tr>";
+
+					}
+					$("#searchResult > tbody").html(searchContent);
+					$(result).each(function (key, value) {
+						console.log("Object");
+						console.log(value);
+						console.log(value["CustomerFirstName"]);
+					});
+
+					$(".clickable-row").click(function () {
+						$("#myModal").modal("show");
+						var quoteId = $(this).closest('tr').find('td:eq(0)').text();
+						var quoteDate = $(this).closest('tr').find('td:eq(1)').text();
+						var customerName = $(this).closest('tr').find('td:eq(2)').text();
+						var phone = $(this).closest('tr').find('td:eq(3)').text();
+						var state = $(this).closest('tr').find('td:eq(4)').text();
+						var price = $(this).closest('tr').find('td:eq(5)').text();
+						//var status = $(this).closest('tr').find('td:eq(6)').text();
+						var ssn = quotes[quoteId].CustomerSsn;
+						var dob = (quotes[quoteId].CustomerDob.getMonth() + 1) + "/" + quotes[quoteId].CustomerDob.getDate() + "/" + quotes[quoteId].CustomerDob.getFullYear()
+						var address = quotes[quoteId].CustomerAddress;
+						var prevCarrier = quotes[quoteId].PreviousCarrier;
+						var claimsLastFiveYear = quotes[quoteId].ClaimInLastFive;
+						var movingViolations = quotes[quoteId].MovingViolation;
+						var forceDisc = quotes[quoteId].ForceMultiDiscount;
+						var now = new Date().getFullYear();
+						var lessThanThree;
+						if (now - quotes[quoteId].CustomerDob.getFullYear() < 3) {
+							lessThanThree = true;
+						} else {
+							lessThanThree = false;
+						}
+
+						$("#myModalLabel").text("Quote Information for " + customerName);
+						var modalContent = "<div class='panel-group' id='accordion'>"
+                            + "<div class='panel panel-default' id='panel1'>"
+                            + "<div class='panel-heading collapsed' data-toggle='collapse' data-target='#collapsePolicyHolder' >"
+                            + "<span class='panel-title'>"
+                            + "Policy Holder"
+                            + "</span>"
+                            + "</div>"
+                            + "<div id='collapsePolicyHolder' class='panel-collapse collapse'>"
+                            + "<div class='panel-body'>"
+                            + "<table class='table table-striped'>"
+                            + "<thead>"
+                            + "<tr>"
+                            + "<th>Quote ID:</th>"
+                            + "<td>" + quoteId + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Date Created:</th>"
+                            + "<td>" + quoteDate + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Customer Name:</th>"
+                            + "<td>" + customerName + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>SSN:</th>"
+                            + "<td>" + ssn + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Date of Birth:</th>"
+                            + "<td>" + dob + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Address:</th>"
+                            + "<td>" + address + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>State:</th>"
+                            + "<td>" + state + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Phone:</th>"
+                            + "<td>" + phone + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Previous Carrier:</th>"
+                            + "<td>" + prevCarrier + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Made Claims in Last 5 Years:</th>"
+                            + "<td>" + claimsLastFiveYear + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Any Moving Violations in Last 5 Years:</th>"
+                            + "<td>" + movingViolations + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Less than 3 Years Driving:</th>"
+                            + "<td>" + lessThanThree + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<th>Force Multi-car Discount:</th>"
+                            + "<td>" + forceDisc + "</td>"
+                            + "</tr>"
+                            + "</tbody>"
+                            + "</table>"
+                            + "</div>"
+                            + "</div>"
+                            + "</div>";
+
+						$("#myModalBody").html(modalContent);
+					})
+				},
+				error: function (result) {
+					console.log(result);
+					alert("Error");
+				}
+			});
+		});
+	});
+</script>

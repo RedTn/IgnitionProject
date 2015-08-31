@@ -1,0 +1,239 @@
+﻿@model AIAWebApplication_2.Models.Vehicle
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script>
+    $(document).ready(function () {
+        $(".deleteRow").click(function () {
+            vehicleId = $(this).attr("value");
+            alert(vehicleId);
+        })
+    })
+</script>
+
+<h2>Add Quotations</h2>
+
+<div class="progress-circle">
+    <div class="progress-circle-row">
+        <div class="progress-circle-step">
+            <button type="button" class="btn btn-default btn-circle disabled">1</button>
+            <p>Add Policy Holder</p>
+        </div>
+        <div class="progress-circle-step">            
+            @Html.ActionLink("2", "Create", "Driver", new { id = Model.QuoteId }, new { @class = "btn btn-default btn-circle" })
+            <p>Add Drivers</p>
+        </div>
+        <div class="progress-circle-step">
+            <button type="button" class="btn btn-primary btn-circle disabled">3</button>
+            <p>Add Vehicles</p>
+        </div>
+        <div class="progress-circle-step">
+            @Html.ActionLink("4", "Summary", "Quote", new { id = Model.QuoteId }, new { @class = "btn btn-default btn-circle" })
+            <p>Quote Summary</p>
+        </div>
+    </div>
+</div>
+
+<h4>Vehicle</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>VIN</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Current Value</th>
+            <!--<th>Primary Driver</th>-->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vehicle in ViewBag.Vehicles)
+        {
+            <tr>
+                <td>@Html.Raw(vehicle.Vin)</td>
+                <td>@Html.Raw(vehicle.Make)</td>
+                <td>@Html.Raw(vehicle.CarModel)</td>
+                <td>@Html.Raw(vehicle.Year)</td>
+                <td>@Html.Raw("$" + vehicle.CurrentValue)</td>
+                <!--<td>@Html.Raw(vehicle.DriverId)</td>-->
+                <!--<td><a class="deleteRow" value="@Html.Raw(vehicle.Id)">Delete</a></td>-->
+            </tr>
+        }
+    </tbody>
+</table>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vin, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vin, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Vin, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Make, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Make, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Make, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CarModel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CarModel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CarModel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mileage, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mileage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mileage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CurrentValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CurrentValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CurrentValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DaysDrivenPerWeek, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DaysDrivenPerWeek, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DaysDrivenPerWeek, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnnualMiles, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnnualMiles, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AnnualMiles, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MilesDrivenToWork, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MilesDrivenToWork, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MilesDrivenToWork, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HasDaytimeRunningLights, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.HasDaytimeRunningLights)
+                    @Html.ValidationMessageFor(model => model.HasDaytimeRunningLights, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HasAntilockBrakingSystem, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.HasAntilockBrakingSystem)
+                    @Html.ValidationMessageFor(model => model.HasAntilockBrakingSystem, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PassiveRestraints, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.PassiveRestraints)
+                    @Html.ValidationMessageFor(model => model.PassiveRestraints, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AntiTheft, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.AntiTheft)
+                    @Html.ValidationMessageFor(model => model.AntiTheft, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReduceUse, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.ReduceUse)
+                    @Html.ValidationMessageFor(model => model.ReduceUse, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GarageDifferent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.GarageDifferent)
+                    @Html.ValidationMessageFor(model => model.GarageDifferent, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DriverId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DriverId, (IEnumerable<SelectListItem>)ViewBag.Drivers)
+                @Html.ValidationMessageFor(model => model.DriverId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit and Add" class="btn btn-default" />
+                @Html.ActionLink("Continue", "Summary", "Quote", new { id = Model.QuoteId }, new { @class = "btn btn-default linkButton" })
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    $(document).ready(function () {
+        $("#addQuotations").toggleClass("active");
+        $("#main-menu li").click(function () {
+            $(this).toggleClass("active");
+        })
+    });
+</script>

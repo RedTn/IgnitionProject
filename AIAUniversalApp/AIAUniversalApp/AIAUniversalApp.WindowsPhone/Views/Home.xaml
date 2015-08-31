@@ -1,0 +1,60 @@
+﻿<Page
+    x:Class="AIAUniversalApp.Views.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AIAUniversalApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="WhiteSmoke">
+        <ScrollViewer>
+            <StackPanel Orientation="Vertical">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <HyperlinkButton x:Name="Saved1" Click="Saved_Click" Foreground="Black"  Padding="10" Content="Saved" Grid.Column="0" ClickMode="Press" FontSize="40" />
+                <HyperlinkButton  x:Name="Submitted1" Click="Submitted_Click" Foreground="Black"  Padding="10" Content="Submitted"  Grid.Column="1" FontSize="40" />
+            </StackPanel>
+                <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Top">
+                   
+                    <ListView Padding="6" HorizontalAlignment="Center" Foreground="Black" x:Name="SavedQuotesList">
+                        <StackPanel Orientation="Horizontal">
+                            <ListViewHeaderItem Width="80" Content="Date" FontWeight="Bold"/>
+                            <ListViewHeaderItem Width="150" Content="Customer Name" FontWeight="Bold"/>
+                            <ListViewHeaderItem Width="60" Content="Price ($)" FontWeight="Bold"/>
+                            
+                        </StackPanel>
+                        <ListView x:Name="ListQuotes" IsItemClickEnabled="True" ItemClick="Quote_ItemClick">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                            <TextBlock HorizontalAlignment="Center" Width="80" Text="{Binding SubmissionTime}" Foreground="Black"/>
+                                            <TextBlock HorizontalAlignment="Center" Width="150" Text="{Binding CustomerName}" Foreground="Black"/>
+                                            <TextBlock HorizontalAlignment="Center" Width="60" Text="{Binding Price}" Foreground="Black"/>
+                                            <!--<HyperlinkButton Foreground="Blue" Content="Edit" FontSize="10" Click="Edit_Click"/>
+                                            <TextBlock HorizontalAlignment="Center" Width="3" Text="|" Foreground="Black"/>
+                                            <HyperlinkButton Foreground="Blue" Content="Delete" FontSize="10"/>-->
+
+                                        </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </ListView>
+
+                    <ListView Visibility="Collapsed" ItemsSource="{Binding SavedQuotes}" x:Name="SubmittedQuotesList">
+                        <ListViewItem>
+                            <DataTemplate>
+
+                            </DataTemplate>
+                        </ListViewItem>
+                    </ListView>
+
+                </StackPanel>
+            
+            
+        </StackPanel>
+        </ScrollViewer>
+        <local:BottomAppBar VerticalAlignment="Bottom"/>
+    </Grid>
+</Page>

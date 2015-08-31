@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAWebApplication_2", "AIAWebApplication_2\AIAWebApplication_2.csproj", "{0D3A5A27-98BC-4476-9A4D-DEB1EE34B55A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAWebApplication_2.Tests", "AIAWebApplication_2.Tests\AIAWebApplication_2.Tests.csproj", "{348170B8-8A96-4C7A-8BC5-6697EEDFF069}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4D20424A-1CD5-49EF-B1DE-2600B49AA026}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs13.dcs.avanade.com/tfs/gld
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AIAWebApplication_2.Tests\\AIAWebApplication_2.Tests.csproj
+		SccProjectName1 = AIAWebApplication_2.Tests
+		SccLocalPath1 = AIAWebApplication_2.Tests
+		SccProjectUniqueName2 = AIAWebApplication_2\\AIAWebApplication_2.csproj
+		SccProjectName2 = AIAWebApplication_2
+		SccLocalPath2 = AIAWebApplication_2
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D3A5A27-98BC-4476-9A4D-DEB1EE34B55A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3A5A27-98BC-4476-9A4D-DEB1EE34B55A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3A5A27-98BC-4476-9A4D-DEB1EE34B55A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3A5A27-98BC-4476-9A4D-DEB1EE34B55A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{348170B8-8A96-4C7A-8BC5-6697EEDFF069}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{348170B8-8A96-4C7A-8BC5-6697EEDFF069}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{348170B8-8A96-4C7A-8BC5-6697EEDFF069}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{348170B8-8A96-4C7A-8BC5-6697EEDFF069}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

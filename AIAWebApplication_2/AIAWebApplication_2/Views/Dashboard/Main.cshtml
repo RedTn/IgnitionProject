@@ -1,0 +1,263 @@
+﻿@model AIAWebApplication_2.Models.DashboardViewModel
+@section AddToHead {
+	<link href="@Url.Content("~/Content/ManagerDashboard.css")" rel="stylesheet" type="text/css" />
+	<link href="~/Content/messenger/messenger.css" rel="stylesheet" />
+	<link href="~/Content/messenger/messenger-theme-future.css" rel="stylesheet" />
+}
+
+@{
+	Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+	ViewBag.Title = "Manager Dashboard";
+	var todaysDate = DateTime.Now.ToShortDateString();
+	double singleQuote = 450.0; // TODO: CHANGE THIS TO QUERY RECENT QUOTE DATA FOR A SPECIFIC AGENT.
+	double totalRevenue = 9500.0; // TODO: CHANGE THIS TO QUERY QUOTATION AMOUNT DATA
+	string agentName = "";
+    int count = 0;
+}
+
+@Scripts.Render("~/bundles/chartRendering")
+
+<div class="main-header">
+	<h2>Dashboard</h2>
+</div>
+
+<!--TODO: NEED TO MAKE SURE THAT EVEN AFTER A MANAGER IS REGISTERED, THEY NEED TO BE APPROVED BY A MANAGER THAT ALREAdY
+	HAS ACCESS TO THE SYSTEM-->
+
+<div class="dashboard">
+
+	<div class="card">
+		<h3 class="card-header">Revenue (Past 6 Months)</h3>
+		<div class="card-content-graphs">
+			<div id="line-example" style="height: 260px;"></div>
+			<script>
+				var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+				Morris.Line({
+					element: 'line-example',
+					data: [
+						{ month: '2015-03', value: 22333.16 },
+						{ month: '2015-04', value: 15784.56 },
+						{ month: '2015-05', value: 17590.89 },
+						{ month: '2015-06', value: 25185.15 },
+						{ month: '2015-07', value: 32395.0 },
+						{ month: '2015-08', value: @Model.CompanyTotal }
+					],
+					xkey: 'month',
+					ykeys: ['value'],
+					labels: ['Quotes ($)'],
+					xLabelFormat: function (x) { // <--- x.getMonth() returns valid index
+						var month = months[x.getMonth()];
+						return month;
+					},
+					dateFormat: function (x) {
+						var month = months[new Date(x).getMonth()];
+						return month;
+					}
+				});
+			</script>
+		</div>
+	</div>
+
+	<div class="card">
+		<div>
+			<div class="text-content">
+				<span class="recent-quote-card-header">@Html.DisplayFor(model => model.QuotesThisMonth)
+                </span><br />
+				<span class="recent-quotes-text">Quotes Submitted</span><br />
+				<span class="recent-quotes-text">This Month</span><br />
+			</div>
+			<div class="quote-image">
+				<img class="quote-image" src="~/Images/quote-icon.jpg" />
+			</div>
+		</div>
+	</div>
+
+	<div class="card card-top-five">
+		<h3 class="card-header">Top 5 Agents</h3>
+		<div class="card-top-five-table">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Agent ID</th>
+						<th>Agent Name</th>
+						<th>Revenue</th>
+					</tr>
+				</thead>
+				<tbody>
+				@{
+					//decimal total = new decimal();
+					//int userTracker = 0;
+					//decimal priceTracker = 0;
+					//List<int, decimal> userPriceTracker = new List<int,decimal>();
+					
+					//foreach (var price in Model.TopFiveQuoteList) {
+					//	var currentUser = price.AIAUserId;
+					//	if (currentUser == userTracker) {
+					//		total += price.Price;
+					//		priceTracker = total;
+					//	}
+					//	userTracker = price.AIAUserId;
+					//	userPriceTracker.Add(usertr);
+					//}
+				}
+
+					@foreach (var item in Model.TopFiveQuoteList) {
+						<tr>
+							<td>@item.AIAUserId</td>
+							<td>
+								@{
+									foreach (var recentQuote in Model.TopFiveAgentList) {
+										if (recentQuote.Id == item.AIAUserId) {
+											agentName = string.Format(recentQuote.FirstName + " " + recentQuote.LastName);
+										}
+									}
+								}
+								@agentName
+							</td>
+							<td>@string.Format("{0:C}", item.Price)</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+	<div class="card card-approve-managers-agents">
+		<h3 class="card-header">Approve Agents/Managers</h3>
+		<div class="card-recent-quotes-table">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						@*<th>Role</th>*@
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var user in Model.PendingAiaUsersList) {
+						<tr>
+							<td>@user.FirstName @user.LastName</td>
+							@*<td>
+							</td>*@
+							<td>
+								<div id="selectdiv" value="3">
+									<select id="first">
+										<option value="0">Pending</option>
+										<option value="1">Approved</option>
+										<option value="2">Rejected</option>
+									</select>
+								</div>
+
+							</td>
+						</tr>
+					}
+					<!--TODO: TAKE CARE OF OVERFLOW DISPLAY ISSUES-->
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+	<div class="card card-recent-quotes">
+		<h3 class="card-header">Recent Submitted Quotes</h3>
+		<div class="card-recent-quotes-table">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Date Submitted</th>
+						<th>Agent</th>
+						<th>Quote Price ($)</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.RecentQuotesList) {
+                        if (item.Price == 0)
+                        {
+                            
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    @if (item.SubmissionTime != null)
+                                    {
+                                        @item.SubmissionTime.Value.ToShortDateString()
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                            foreach (var recentQuote in Model.RecentAiaUsersList)
+                            {
+                                if (recentQuote.Id == item.AIAUserId)
+                                {
+                                    agentName = string.Format(recentQuote.FirstName + " " + recentQuote.LastName);
+                                }
+                            }
+                                    }
+                                    @agentName
+                                </td>
+                                <td>@string.Format("{0:c}", item.Price)</td>
+                            </tr>
+                        }
+
+                    }
+					<!--TODO: TAKE CARE OF OVERFLOW DISPLAY ISSUES-->
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+	<script src="~/Scripts/messenger/messenger.min.js"></script>
+	<script src="~/Scripts/messenger/messenger-theme-future.js"></script>
+
+	<script>
+		$(document).ready((function () {
+			var modelId = 5;
+			var messages = {
+				progressMessage: "Saving...",
+				successMessage: "Saved!",
+				errorMessage: "An error has occured",
+				showCloseButton: false,
+				hideAfter: 5
+			};
+
+			Messenger.options = {
+				extraClasses: 'messenger-fixed messenger-on-bottom',
+				theme: 'flat'
+			}
+
+			$('#selectdiv').change(function () {
+				var data = {};
+				data["ID"] = $('#selectdiv').attr('value');
+				data["CanUseSystem"] = $('#first').val();
+				Messenger().run(messages, {
+					url: "@Url.Action("UpdateUser", "Dashboard")",
+					type: "POST",
+					contentType: 'application/json; charset=utf-8',
+					data: JSON.stringify(data)
+				});
+				$.ajax({
+					url: "@Url.Action("UpdateUser", "Dashboard")",
+					type: "POST",
+					contentType: 'application/json; charset=utf-8',
+					data: JSON.stringify(data)
+				});
+			});
+		}
+		));
+	</script>
+
+	<script>
+		$(document).ready(function () {
+			$("#main").toggleClass("active");
+			$("#main-menu li").click(function () {
+				$(this).toggleClass("active");
+			})
+		});
+	</script>
+}

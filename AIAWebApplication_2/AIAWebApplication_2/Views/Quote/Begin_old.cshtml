@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Begin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Start new Quote?</h2>
+
+@using (Html.BeginForm("BeginSubmit", "Quote", FormMethod.Get))
+{
+    <input type="submit" value="Yes" />
+}
+
+@*TODO: Change to button*@
+<div>
+    @Html.ActionLink("No", "Index", "Home")
+</div>
+

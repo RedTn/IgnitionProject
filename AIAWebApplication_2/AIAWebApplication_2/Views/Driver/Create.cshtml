@@ -1,0 +1,215 @@
+﻿@model AIAWebApplication_2.Models.Driver
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script>
+    $(document).ready(function () {
+        $(".deleteRow").click(function () {
+            driverId = $(this).attr("value");
+            alert(driverId);
+        })
+    })
+</script>
+
+<h2>Add Quotations</h2>
+
+<div class="progress-circle">
+    <div class="progress-circle-row">
+        <div class="progress-circle-step">
+            <button type="button" class="btn btn-default btn-circle disabled">1</button>
+            <p>Add Policy Holder</p>
+        </div>
+        <div class="progress-circle-step">
+            <button type="button" class="btn btn-primary btn-circle disabled">2</button>
+            
+            <p>Add Drivers</p>
+        </div>
+        <div class="progress-circle-step">
+            @Html.ActionLink("3", "Create", "Vehicle", new { id = Model.QuoteId }, new { @class = "btn btn-default btn-circle" })
+            <p>Add Vehicles</p>
+        </div>
+        <div class="progress-circle-step">
+            @Html.ActionLink("4", "Summary", "Quote", new { id = Model.QuoteId }, new { @class = "btn btn-default btn-circle" })
+            <p>Quote Summary</p>
+        </div>
+    </div>
+</div>
+
+<h4>Driver</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Date of Birth</th>
+            <th>SSN</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var driver in ViewBag.Drivers)
+            {
+                <tr>
+                    <td>@Html.Raw(driver.FirstName + " " + driver.MiddleInitial + " " + driver.LastName + " " + driver.NameSuffix)</td>
+                    <td>@Html.Raw(driver.Address)</td>
+                    <td>@Html.Raw(driver.Phone)</td>
+                    <td>@Html.Raw(driver.Dob)</td>
+                    <td>@Html.Raw(driver.Ssn)</td>
+                    <td><a class="deleteRow" value="@Html.Raw(driver.Id)" style="visibility:hidden">Delete</a></td>
+                </tr>
+            }
+    </tbody>
+</table>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NameSuffix, "Name Suffix", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameSuffix, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameSuffix, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, "First Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, "Last Name", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MiddleInitial, "Middle Initial", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MiddleInitial, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MiddleInitial, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ssn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.PasswordFor(model => model.Ssn, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ssn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Gender, new SelectList(AIAWebApplication_2.Models.Genders.GetGenders(), Model.Gender))
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Relationship, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Relationship, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Relationship, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LicenseState, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.LicenseState, new SelectList(AIAWebApplication_2.Models.States.GetStates(), Model.LicenseState))
+                @Html.ValidationMessageFor(model => model.LicenseState, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LicenseNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LicenseNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LicenseNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LicenseDateStart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LicenseDateStart, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LicenseDateStart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SafeDrivingSchool, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.SafeDrivingSchool)
+                    @Html.ValidationMessageFor(model => model.SafeDrivingSchool, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @*@Html.LabelFor(model => model.QuoteId, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.QuoteId)*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit and Add" class="btn btn-default firstButton" />
+                @Html.ActionLink("Continue", "Create", "Vehicle", new { id = Model.QuoteId }, new { @class="btn btn-default linkButton"})
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    $(document).ready(function () {
+        $("#addQuotations").toggleClass("active");
+        $("#main-menu li").click(function () {
+            $(this).toggleClass("active");
+        })
+    });
+</script>

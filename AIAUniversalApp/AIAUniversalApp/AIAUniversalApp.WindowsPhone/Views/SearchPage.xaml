@@ -1,0 +1,230 @@
+﻿<Page
+    x:Class="AIAUniversalApp.Views.SearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AIAUniversalApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style x:Key="ButtonStyle1" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource ButtonBackgroundThemeBrush}"/>
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundThemeBrush}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderThemeBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="12,4,12,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame  KeyTime="0" Value="{ThemeResource ButtonPointerOverForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBackgroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+                                            <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+                                <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                            <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="WhiteSmoke" >
+
+        <StackPanel x:Name="sP"  Orientation="Vertical">
+            <TextBlock Foreground="Black" Margin="10" FontSize="25" HorizontalAlignment="Center" Grid.Row="0" Padding="6" TextWrapping="Wrap" Text="Search" />
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <Button Margin="15,0,0,0" x:Name="First" Click="First_Click" BorderBrush="Black" FontSize="15" Content="First Name" HorizontalAlignment="Left" Foreground="Black" Width="138" />
+                    <Button Margin="15,0,0,0" x:Name="Last" Click="Last_Click" BorderBrush="Black" FontSize="15" Content="Last Name" HorizontalAlignment="Left" Foreground="Black" Width="138" />
+                    <Button Margin="15,0,0,0" x:Name="StateB" Click="State_Click" BorderBrush="Black" FontSize="15" Content="State" HorizontalAlignment="Left" Foreground="Black" Width="138" />
+                    <Button Margin="15,0,0,0" x:Name="Phone" Click="Phone_Click" BorderBrush="Black" FontSize="15" Content="Phone Number" HorizontalAlignment="Left" Foreground="Black" Width="138" />
+                    <Button Margin="15,0,0,0" x:Name="Date" Click="Date_Click" BorderBrush="Black" FontSize="15" Content="Date" HorizontalAlignment="Left" Foreground="Black" Width="138"/>
+                    <Button Margin="15,0,0,0" x:Name="Quote" Click="Quote_Click" BorderBrush="Black" FontSize="15" Content="Quote Type" HorizontalAlignment="Left" Foreground="Black" Width="138" Style="{StaticResource ButtonStyle1}" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBox Text="{Binding FirstName, Mode=TwoWay}" BorderBrush="Black" Visibility="Visible"  Margin="10,10,0,15" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" MaxHeight="1" Width="150" VerticalAlignment="Top"  />
+                    <TextBox Text="{Binding LastName, Mode=TwoWay}" BorderBrush="Black" Visibility="Visible" Margin="10,10,0,10" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" MaxHeight="1" Width="150" VerticalAlignment="Top"/>
+                    <Button  Foreground="Black" BorderBrush="Black" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Margin="8,0,0,6" x:Name="StateButton">
+                        <Button.Flyout>
+                            <ListPickerFlyout x:Name="StateList" SelectedValue="{Binding State, Mode=TwoWay}"  ItemsPicked="StateSelection_Click">
+                            </ListPickerFlyout>
+                        </Button.Flyout>
+                    </Button>
+                    <TextBox Text="{Binding Phone, Mode=TwoWay}" BorderBrush="Black" Visibility="Visible" Margin="10,10,0,10" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" MaxHeight="1" Width="150" VerticalAlignment="Top"/>
+                    <StackPanel x:Name="datePicker" Orientation="Horizontal" Margin="5,0,0,5"   HorizontalAlignment="Left">
+                        <DatePicker Date="{Binding DateStart, Mode=TwoWay}" HorizontalAlignment="Center" BorderBrush="Black"  Foreground="Black" Width="108" x:Name="StartDateTime" />
+                        <TextBlock Foreground="Black"  FontSize="22" Margin="2,15,2,0" TextWrapping="Wrap" Text="to"/>
+                        <DatePicker Date="{Binding DateEnd, Mode=TwoWay}" HorizontalAlignment="Center" BorderBrush="Black"  Foreground="Black"  Width="108" x:Name="EndDateTime"/>
+
+                    </StackPanel>
+                    <Button Foreground="Black" BorderBrush="Black" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Margin="8,0,0,8" x:Name="QuoteStatusButton">
+                        <Button.Flyout>
+                            <ListPickerFlyout x:Name="QuoteStatusList" SelectedValue="{Binding Submitted, Mode=TwoWay}"  ItemsPicked="QuoteStatusSelection_Click">
+                            </ListPickerFlyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+
+
+
+
+            <!--<local:SearchField x:Name="SearchUser" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+            <local:SearchField x:Name="SearchUser2" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+            <local:SearchField x:Name="SearchUser3" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+            <local:SearchField x:Name="SearchUser4" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+            <local:SearchField x:Name="SearchUser5" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+            <local:SearchField x:Name="SearchUser6" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+            <local:SearchField x:Name="SearchUser7" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+            <local:SearchField x:Name="SearchUser8" HorizontalAlignment="Left" Margin="20,0,0,0"/>-->
+
+            <!--<StackPanel Visibility="Visible" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <local:SearchField x:Name="Search1" Grid.Column="0" />
+
+                <Grid Margin="5"  Width="30" Height="30" x:Name="Add" >
+                    <Ellipse   Stroke="Black" StrokeThickness="2"/>
+                    <HyperlinkButton x:Name="plus1" Click="Add_Click"  Content="+" FontWeight="ExtraBold" FontSize="15" Foreground="Black" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                <local:SearchField x:Name="Search2" Visibility="Collapsed" Grid.Column="0" />
+
+                <Grid Margin="5" Visibility="Collapsed" x:Name="Add2"  Width="30" Height="30" >
+                    <Ellipse   Stroke="Black" StrokeThickness="2"/>
+                    <HyperlinkButton x:Name="plus2" Click="Add2_Click"  Content="+" FontWeight="ExtraBold" FontSize="15" Foreground="Black" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                <local:SearchField x:Name="Search3" Visibility="Collapsed" Grid.Column="0" />
+
+                <Grid Margin="5" x:Name="Add3" Visibility="Collapsed" Width="30" Height="30" >
+                    <Ellipse   Stroke="Black" StrokeThickness="2"/>
+                    <HyperlinkButton x:Name="plus3"  Click="Add3_Click"  Content="+" FontWeight="ExtraBold" FontSize="15" Foreground="Black" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
+                <local:SearchField x:Name="Search4" Visibility="Collapsed" Grid.Column="0" />
+
+                <Grid Margin="5" x:Name="Add4" Visibility="Collapsed" Width="30" Height="30" >
+                    <Ellipse   Stroke="Black" StrokeThickness="2"/>
+                    <HyperlinkButton x:Name="plus4" Click="Add4_Click"  Content="+" FontWeight="ExtraBold" FontSize="15" Foreground="Black" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
+                <local:SearchField x:Name="Search5" Visibility="Collapsed" Grid.Column="0" />
+
+                <Grid Margin="5" x:Name="Add5" Visibility="Collapsed" Width="30" Height="30" >
+                    <Ellipse   Stroke="Black" StrokeThickness="2"/>
+                    <HyperlinkButton x:Name="plus5" Click="Add5_Click"  Content="+" FontWeight="ExtraBold" FontSize="15" Foreground="Black" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
+                <local:SearchField x:Name="Search6" Visibility="Collapsed" Grid.Column="0" />
+
+                <Grid Margin="5" x:Name="Add6" Visibility="Collapsed" Width="30" Height="30" >
+                    <Ellipse   Stroke="Black" StrokeThickness="2"/>
+                    <HyperlinkButton x:Name="plus6" Click="Add6_Click"  Content="+" FontWeight="ExtraBold" FontSize="15" Foreground="Black" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Center">
+                <local:SearchField x:Name="Search7" Visibility="Collapsed" Grid.Column="0" />
+
+                <Grid Margin="5" x:Name="Add7" Visibility="Collapsed" Width="30" Height="30" >
+                    <Ellipse   Stroke="Black" StrokeThickness="2"/>
+                    <HyperlinkButton x:Name="plus7" Click="Add7_Click"  Content="+" FontWeight="ExtraBold" FontSize="15" Foreground="Black" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Center">
+                <local:SearchField x:Name="Search8" Visibility="Collapsed" Grid.Column="0" />
+
+                <Grid Margin="5" x:Name="Add8" Visibility="Collapsed" Width="30" Height="30" >
+                    <Ellipse   Stroke="Black" StrokeThickness="2"/>
+                    <HyperlinkButton   Content="+" FontWeight="ExtraBold" FontSize="15" Foreground="Black" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+
+                </Grid>
+            </StackPanel>-->
+
+        </StackPanel>
+
+
+
+        <Grid VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" BorderBrush="Black" FontSize="20"  Foreground="Black"   Click="Search_Click" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
+            <local:BottomAppBar Grid.Row="1" VerticalAlignment="Bottom"/>
+        </Grid>
+    </Grid>
+</Page>

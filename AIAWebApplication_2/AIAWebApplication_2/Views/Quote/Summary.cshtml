@@ -1,0 +1,124 @@
+﻿@model AIAWebApplication_2.Models.Quote
+
+@{
+    ViewBag.Title = "Summary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Quotations</h2>
+<div class="progress-circle">
+    <div class="progress-circle-row">
+        <div class="progress-circle-step">
+            <button type="button" class="btn btn-default btn-circle disabled">1</button>
+            <p>Add Policy Holder</p>
+        </div>
+        <div class="progress-circle-step">
+            @Html.ActionLink("2", "Create", "Driver", new { id = Model.Id }, new { @class = "btn btn-default btn-circle" })
+            <p>Add Drivers</p>
+        </div>
+        <div class="progress-circle-step">
+            @Html.ActionLink("3", "Create", "Vehicle", new { id = Model.Id }, new { @class = "btn btn-default btn-circle" })
+            <p>Add Vehicles</p>
+        </div>
+        <div class="progress-circle-step">
+            <button type="button" class="btn btn-primary btn-circle disabled">4</button>
+            <p>Quote Summary</p>
+        </div>
+    </div>
+</div>
+
+<h4>Quote Summary</h4>
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default" id="panel1">
+        <div class='panel-heading collapsed' data-toggle='collapse' data-target='#collapseOne'>
+            <span class="panel-title">Drivers</span>
+        </div>
+
+        <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Driver Name</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i=0; i<ViewBag.Drivers.Count; i++)
+                        {
+                            var driver = ViewBag.Drivers[i];
+                            var driverCost = ViewBag.DriverCost[i];
+                            <tr id="driver">
+                            <td>@Html.Raw(driver.FirstName + " " + driver.MiddleInitial + " " + driver.LastName + " " + driver.NameSuffix)</td>
+                            <td>@String.Format("{0:C}",driverCost)</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" id="panel2">
+        <div class='panel-heading collapsed' data-toggle='collapse' data-target='#collapseTwo'>
+            <span class="panel-title">Vehicles</span>
+        </div>
+
+        <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>VIN</th>
+                            <th>Make</th>
+                            <th>Model</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < ViewBag.Vehicles.Count; i++ )
+                        {
+                            var vehicle = ViewBag.Vehicles[i];
+                            var vehiclePrice = ViewBag.VehicleCost[i];
+                            <tr id="vehicle">
+                                <td>@Html.Raw(vehicle.Vin)</td>
+                                <td>@Html.Raw(vehicle.Make)</td>
+                                <td>@Html.Raw(vehicle.CarModel)</td>
+                                <td>@String.Format("{0:C}",vehiclePrice)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" id="panel2">
+        <div class='panel-heading no-pointer'>
+            <span class="panel-title">
+                Total Policy Amount: @string.Format("{0:c}", Model.Price)
+            </span>
+        </div>
+    </div>
+
+</div>
+
+@Html.ActionLink("Submit", "Submit", "Quote", new { id = Model.Id }, new { @class = "btn btn-default linkButtonRow" })
+<!--@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-default linkButtonRow" })-->
+@Html.ActionLink("Back to List", "Index")
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    $(document).ready(function () {
+        $("#addQuotations").toggleClass("active");
+        $("#main-menu li").click(function () {
+            $(this).toggleClass("active");
+        })
+    });
+</script>

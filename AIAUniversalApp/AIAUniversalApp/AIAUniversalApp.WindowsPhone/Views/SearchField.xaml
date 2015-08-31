@@ -1,0 +1,56 @@
+﻿<UserControl
+    x:Class="AIAUniversalApp.Views.SearchField"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AIAUniversalApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal">
+            
+
+            <!--<ComboBox Grid.Column="0" Grid.Row="0" Width="150" IsDropDownOpen="True">
+                <ComboBoxItem Content="Quote Number"/>
+                <ComboBoxItem Content="First Name"/>
+                <ComboBoxItem Content="Last Name"/>
+                <ComboBoxItem Content="State"/>
+                <ComboBoxItem Content="Phone Number"/>
+            </ComboBox>-->
+
+            <Button Foreground="Black" BorderBrush="Black" Margin="0,0,0,0" x:Name="SearchButton" Grid.Column="0" Content="Search By" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Name="i1" Text="Quote Number" Click="Item1_Click"/>
+                        <MenuFlyoutItem Text="First Name" Click="Item2_Click"/>
+                        <MenuFlyoutItem Text="Last Name" Click="Item3_Click"/>
+                        <MenuFlyoutItem Text="State" Click="Item4_Click"/>
+                        <MenuFlyoutItem Text="Phone Number" Click="Item5_Click"/>
+                        <MenuFlyoutItem Text="Zip Code" Click="Item6_Click"/>
+                        <MenuFlyoutItem Text="Date" Click="Item7_Click"/>
+                        <MenuFlyoutItem Text="Quote Type" Click="Item8_Click"/>
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+
+            <TextBox BorderBrush="Black" Visibility="Visible" x:Name="tBox" Margin="0,10,0,0" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" MaxHeight="1" Width="150" VerticalAlignment="Top"/>
+
+            <StackPanel x:Name="datePicker" Visibility="Collapsed" Orientation="Horizontal"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+                <DatePicker HorizontalAlignment="Center" BorderBrush="Black"  Foreground="Black" Width="108"  />
+                <TextBlock Foreground="Black"  FontSize="22" Margin="2,15,2,0" TextWrapping="Wrap" Text="to"/>
+                <DatePicker HorizontalAlignment="Center" BorderBrush="Black"  Foreground="Black"  Width="108" />
+
+            </StackPanel>
+
+            <ComboBox BorderBrush="Black"  Foreground="Black"  Grid.Column="1" x:Name="quoteP" Visibility="Collapsed" Width="120" Background="White">
+                <ComboBoxItem Foreground="Black" Content="Saved"/>
+                <ComboBoxItem Foreground="Black"  Content="Submitted"/>
+            </ComboBox>
+
+
+        </StackPanel>
+    </Grid>
+</UserControl>

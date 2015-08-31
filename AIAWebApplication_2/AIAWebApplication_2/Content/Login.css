@@ -1,0 +1,45 @@
+﻿.top-bar {
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24);
+	-ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+img {
+	margin-top: 50px;
+}
+
+.sidebar-wrapper {
+	border-color: transparent;
+}
+
+.centeredItems {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.large-logo-image {
+	margin-top: 20px;
+	position: fixed;
+	display: inline-block;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.body-content {
+	border-left: none;
+}
+
+.nav {
+	padding-left: 200px;
+}
+
+.login-links {
+	width: 400px;
+}
+
+.container {
+	padding-left: 15px;
+}

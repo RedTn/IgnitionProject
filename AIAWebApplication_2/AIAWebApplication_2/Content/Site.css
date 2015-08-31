@@ -1,0 +1,329 @@
+﻿html, body {
+	background-color: #f5f5f5;
+	height: 100%;
+}
+
+body {
+	padding-top: 50px;
+	/*padding-bottom: 20px;*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+	padding-left: 100px;
+	padding-right: 15px;
+	border-left: 1px solid #E4E4E4;
+	max-width: 100%;
+	margin: 0px 200px;
+	height: 100%;
+}
+
+.container {
+	max-width: 100%;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+	white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+	max-width: 280px;
+}
+
+/* Set color of navbar*/
+
+.top-bar {
+	text-align: left;
+	background-color: #F24541;
+	border-color: #F24541;
+	border-width: 0px, 0px, 1px, 0px;
+	min-height: 50px;
+	width: 100%;
+	margin-top: -50px;
+	position: fixed;
+	z-index: 100;
+}
+
+.top-bar .app-title {
+	display: inline-block;
+	position: fixed;
+	width: 200px;
+	height: 50px;
+	background-color: white;
+	text-align: left;
+	font-size: 18px;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+.nav {
+	padding-left: 200px;
+	width: 700px;
+}
+
+.navbar-right {
+	float: none !important;
+}
+
+.logoImage {
+	margin-top: 10px;
+	margin-left: 5px;
+}
+
+.login-links {
+	width: 400px;
+}
+
+.top-bar .container {
+	margin: 0;
+}
+
+/* Seet color of login links */
+#register-link, #login-link, #manage-link, #logout-link {
+	color: white;
+}
+
+.sidebar-wrapper {
+	position: fixed;
+	height: 100%;
+	background-color: #EBEBEB;
+	width: 200px;
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24);
+	-ms-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.left-sidebar {
+	padding: 0;
+	width: 200px;
+	position: absolute;
+	top: 25%;
+}
+
+ul.main-menu {
+	padding-left: 0px;
+	list-style-type: none;
+	font-weight: 600;
+	margin-left: -10px;
+	border-top: 1px solid #DEDEDE;
+}
+
+.main-menu li {
+	background-color: #EBEBEB;
+	border-bottom: 1px solid #DEDEDE;
+	text-align: center;
+}
+
+.main-menu li.active {
+	background-color: #DEDEDE;
+	width: 100%;
+	border-bottom: 1px solid #DEDEDE;
+}
+
+.main-menu li.active:hover {
+	background-color: #DEDEDE;
+	pointer-events: none;
+	cursor: default;
+}
+
+.main-menu li:hover {
+	background-color: #F8F8F8;
+}
+
+.main-menu li > a {
+	color: inherit;
+	text-decoration: none;
+	display: block;
+}
+
+.main-menu li.active > a {
+	pointer-events: none;
+	cursor: default;
+}
+
+.main-menu .hyperlink {
+	padding: 50px;
+}
+
+/* WELCOME SCREEN CONTENT*/
+.tabs {
+	position: relative;
+	min-height: 80%;
+	max-height: 100%;
+	min-width: 200px;
+}
+
+.tab {
+	float: left;
+	padding-top: 10px;
+}
+
+.tab label {
+	background: #EEEEEE;
+	padding: 10px;
+	border: 1px solid #CCCCCC;
+	position: relative;
+}
+
+[type=radio]:checked ~ label {
+	background: #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	z-index: 2;
+}
+
+[type=radio]:checked ~ label ~ .tabContent > * {
+	opacity: 1;
+}
+
+[type=radio]:checked ~ label ~ .tabContent {
+	z-index: 1;
+}
+
+.tab [type=radio] {
+	display: none;
+}
+
+.tabContent {
+	position: absolute;
+	top: 50px;
+	left: 0;
+	background: #FFFFFF;
+	right: 0;
+	bottom: 0;
+	padding: 20px;
+	border: 1px solid #CCCCCC;
+	overflow: auto;
+	min-height: 100%;
+}
+
+.tabContent > * {
+	opacity: 0;
+}
+
+/* FOOTER */
+.bottom-footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	z-index: 99; /* 99 due to z-index of top nav bar*/
+	background-color: #F5F5F5;
+	height: 68px;
+}
+
+/* ADD QUOTATIONS STEPS */
+.progress-circle {
+	display: table;
+	width: 100%;
+	position: relative;
+}
+
+.progress-circle-row {
+	display: table-row;
+}
+
+.progress-circle-step p {
+	margin-top: 10px;
+}
+
+.progress-circle-step {
+	display: table-cell;
+	text-align: center;
+	position: relative;
+}
+
+.progress-circle-row:before {
+	top: 14px;
+	bottom: 0;
+	position: absolute;
+	content: " ";
+	width: 100%;
+	height: 1px;
+	background-color: #CCCCCC;
+	z-index: 0;
+}
+
+.btn-circle {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	padding: 6px 0;
+	font-size: 12px;
+	line-height: 1.5;
+	border-radius: 15px;
+}
+
+.progress-circle-step .disabled {
+	opacity: 1;
+    pointer-events: none;
+}
+
+/* AGENT SEARCH */
+#field {
+	margin-bottom: 20px;
+}
+
+.input, .dropdown-list {
+	display: inline-block;
+}
+
+hr.divider {
+	border-bottom: 1px solid #CFCFCF;
+}
+
+.clickable-row {
+	cursor: pointer;
+}
+
+.pagination .disabled {
+	pointer-events: none;
+}
+
+.pagination {
+	margin: 0;
+	text-align: center;
+}
+
+footer {
+	padding-top: 40px;
+}
+
+/* ADD DRIVERS */
+.firstButton{
+    display: inline-block;
+}
+
+.linkButton{
+    margin-left: 60px;
+}
+
+.linkButton a{
+    color: #000000;
+}
+
+.linkButtonRow{
+    display: inline-block;
+}
+.panel-heading {
+    cursor:pointer;
+}
+
+.no-pointer{
+    pointer-events: none;
+}
+
+.panel-heading:not(.no-pointer) span:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+    float: right;
+    color: grey;
+}
+
+.panel-heading.collapsed:not(.no-pointer) span:after {
+    content:"\e080";
+}

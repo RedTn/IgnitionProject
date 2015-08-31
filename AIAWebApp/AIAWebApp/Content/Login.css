@@ -1,0 +1,17 @@
+﻿.container .body-content {
+}
+
+.sidebar-wrapper {
+	display: none;
+}
+
+.top-bar {
+	border-color: transparent;
+}
+
+section#loginForm {
+	position: relative;
+	margin: 0 auto;
+	border-style: dashed;
+	border-color: black;
+}

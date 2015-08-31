@@ -1,0 +1,57 @@
+﻿<Page
+    x:Class="AIAUniversalApp.Views.SearchResults"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AIAUniversalApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="WhiteSmoke">
+        <StackPanel Orientation="Vertical">
+            <TextBlock Foreground="Black"  FontSize="25" HorizontalAlignment="Center" Grid.Row="0" Padding="6" TextWrapping="Wrap" Text="Search Results"/>
+
+            <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Top">
+
+                <ListView Padding="6" HorizontalAlignment="Center" Foreground="Black" x:Name="SavedQuotesList">
+                    <StackPanel Orientation="Horizontal">
+                        <ListViewHeaderItem Width="80" Content="Date" FontWeight="Bold"/>
+                        <ListViewHeaderItem Width="110" Content="Customer Name" FontWeight="Bold"/>
+                        <ListViewHeaderItem Width="60" Content="Price ($)" FontWeight="Bold"/>
+                        <ListViewHeaderItem Width="50" Content="State" FontWeight="Bold"/>
+
+                    </StackPanel>
+                    <ItemsControl x:Name="ListQuotes">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ListViewItem>
+                                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <TextBlock HorizontalAlignment="Center" Width="80" Text="{Binding SubmissionTime}" Foreground="Black"/>
+                                        <TextBlock HorizontalAlignment="Center" Width="110" Text="{Binding CustomerName}" Foreground="Black"/>
+                                        <TextBlock HorizontalAlignment="Center" Width="60" Text="{Binding Price}" Foreground="Black"/>
+                                        <TextBlock HorizontalAlignment="Center" Width="60" Text="{Binding State}" Foreground="Black"/>
+
+
+                                    </StackPanel>
+                                </ListViewItem>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </ListView>
+
+                <ListView Visibility="Collapsed" ItemsSource="{Binding SavedQuotes}" x:Name="SubmittedQuotesList">
+                    <ListViewItem>
+                        <DataTemplate>
+
+                        </DataTemplate>
+                    </ListViewItem>
+                </ListView>
+
+            </StackPanel>
+        </StackPanel>
+        <local:BottomAppBar Grid.Row="1" VerticalAlignment="Bottom"/>
+
+    </Grid>
+</Page>

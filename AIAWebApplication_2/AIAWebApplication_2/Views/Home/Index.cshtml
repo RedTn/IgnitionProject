@@ -1,0 +1,495 @@
+﻿@model AIAWebApplication_2.Models.WelcomeViewModel
+@{
+    ViewBag.Title = "Agent Welcome Screen";
+}
+<script>
+    var quotes = {};
+</script>
+
+<div class="main-header">
+	<h1>Welcome</h1>
+</div>
+
+<div class="tabs">
+    <div class="tab">
+        <input type="radio" id="savedTab" name="agentQuotes" checked />
+        <label for="savedTab">Saved Quotations</label>
+        <div class="tabContent">
+            @if (Model.SavedQuotes.ToList().Count() < 1)
+            {
+                <p>There are no saved quotations to show.</p>
+            }
+            else
+            {
+                <table class="table table-striped welcome-table">
+                    <thead>
+                        <tr>
+                            <th>Date Created</th>
+                            <th>Customer Name</th>
+                            <th>Address</th>
+                            <th>State</th>
+                            <th>Phone</th>
+                            <th>Quote Amount ($)</th>
+                            <th style="visibility:hidden">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var savedQ in Model.SavedQuotes)
+                        {
+                            <script>
+	                            quotes[@savedQ.Id] = {};
+	                            quotes[@savedQ.Id]["CustomerSsn"] = "@Html.Raw(savedQ.CustomerSsn)";
+	                            quotes[@savedQ.Id]["CustomerDob"] = "@Html.Raw(savedQ.CustomerDob)";
+	                            quotes[@savedQ.Id]["PreviousCarrier"] = "@Html.Raw(savedQ.PreviousCarrier)";
+	                            quotes[@savedQ.Id]["ClaimInLastFive"] = "@Html.Raw(savedQ.ClaimInLastFive)";
+	                            quotes[@savedQ.Id]["MovingViolation"] = "@Html.Raw(savedQ.MovingViolation)";
+	                            quotes[@savedQ.Id]["ForceMultiDiscount"] = "@Html.Raw(savedQ.ForceMultiDiscount)";
+	                            quotes[@savedQ.Id]["Price"] = "@Html.Raw(savedQ.Price)";
+                            </script>
+                            
+                            <tr value="@savedQ.Id" class="savedQuote">
+                                <td class="clickable-row">@Html.Raw(savedQ.SubmissionTime)</td>
+                                <td class="clickable-row">@Html.Raw(savedQ.CustomerFirstName + " " + savedQ.CustomerLastName)</td>
+                                <td class="clickable-row">@Html.Raw(savedQ.CustomerAddress)</td>
+                                <td class="clickable-row">@Html.Raw(savedQ.State)</td>
+                                <td class="clickable-row">@Html.Raw(savedQ.CustomerPhone)</td>
+                                <td class="clickable-row">$@Html.Raw(savedQ.Price)</td>
+                                <td style="visibility:hidden">
+                                    <a href="http://www.google.com/?edit" value="@savedQ.Id">Edit</a>
+                                    <br /><a href="http://www.google.com/?delete" value="@savedQ.Id">Delete</a>
+                                </td>
+                            </tr>
+                            <script>
+	                            quotes[@savedQ.Id]["drivers"] = [];
+	                            @foreach (var driver in savedQ.Drivers)
+                            {
+                                <text>
+                                quotes[@savedQ.Id]["drivers"].push({
+                                    Name: '@Html.Raw(driver.FirstName + " " + driver.LastName + " " + driver.NameSuffix)',
+                                    Ssn: '@Html.Raw(driver.Ssn)',
+                                    Dob: '@Html.Raw(driver.Dob)',
+                                    LicenseNumber: '@Html.Raw(driver.LicenseNumber)',
+                                    LicenseState: '@Html.Raw(driver.LicenseState)',
+                                    SafeDrivingSchool: '@Html.Raw(driver.SafeDrivingSchool)',
+                                    LicenseStartDate: '@Html.Raw(driver.LicenseDateStart)'
+                                });
+
+                                quotes[@savedQ.Id]["vehicles"] = [];
+                                </text>
+                                
+                                foreach (var vehicle in driver.Vehicles){
+                                    <text>
+                                    quotes[@savedQ.Id]["vehicles"].push({
+                                        Vin: '@Html.Raw(vehicle.Vin)',
+                                        Make: '@Html.Raw(vehicle.Make)',
+                                        Model: '@Html.Raw(vehicle.CarModel)',
+                                        Year: '@Html.Raw(vehicle.Year)',
+                                        CurrentValue: '@Html.Raw(vehicle.CurrentValue)',
+                                        PrimaryDriver: '@Html.Raw(driver.FirstName + " " + driver.LastName + " " + driver.NameSuffix)',
+                                        AnnualMileage: '@Html.Raw(vehicle.AnnualMiles)',
+                                        DaysDrivenPerWeek: '@Html.Raw(vehicle.DaysDrivenPerWeek)',
+                                        MilesDrivenToWork: '@Html.Raw(vehicle.MilesDrivenToWork)',
+                                        AntiTheft: '@Html.Raw(vehicle.AntiTheft)',
+                                        AntiLockBrakes: '@Html.Raw(vehicle.HasAntilockBrakingSystem)',
+                                        DaytimeSavingLights: '@Html.Raw(vehicle.HasDaytimeRunningLights)',
+                                        PassiveRestraints: '@Html.Raw(vehicle.PassiveRestraints)',
+                                        ReducedUsedDisc: '@Html.Raw(vehicle.ReduceUse)'
+                                    });
+                                    </text>
+                                }
+                            }
+                            </script>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="tab">
+        <input type="radio" id="submittedTab" name="agentQuotes"/>
+        <label for="submittedTab">Submitted Quotations</label>
+        <div class="tabContent">
+            @if (Model.SubmittedQuotes.ToList().Count() < 1)
+            {
+                <p>There are no submitted quotations to show.</p>
+            }
+            else
+            {
+            <table class="table table-striped welcome-table">
+                <thead>
+                    <tr>
+                        <th>Date Created</th>
+                        <th>Customer Name</th>
+                        <th>Address</th>
+                        <th>State</th>
+                        <th>Phone</th>
+                        <th>Quote Amount ($)</th>
+                    </tr>
+                </thead>
+	            <tbody>
+
+	            @foreach (var submittedQ in Model.SubmittedQuotes) {
+		            <script>
+            			quotes[@submittedQ.Id] = {};
+            			quotes[@submittedQ.Id]["CustomerSsn"] = "@Html.Raw(submittedQ.CustomerSsn)";
+            			quotes[@submittedQ.Id]["CustomerDob"] = "@Html.Raw(submittedQ.CustomerDob)";
+            			quotes[@submittedQ.Id]["PreviousCarrier"] = "@Html.Raw(submittedQ.PreviousCarrier)";
+            			quotes[@submittedQ.Id]["ClaimInLastFive"] = "@Html.Raw(submittedQ.ClaimInLastFive)";
+            			quotes[@submittedQ.Id]["MovingViolation"] = "@Html.Raw(submittedQ.MovingViolation)";
+            			quotes[@submittedQ.Id]["ForceMultiDiscount"] = "@Html.Raw(submittedQ.ForceMultiDiscount)";
+            			quotes[@submittedQ.Id]["Price"] = "@Html.Raw(submittedQ.Price)";
+            		</script>
+
+		            <tr value="@submittedQ.Id" class="submittedQuote">
+			            <td class="clickable-row">@Html.Raw(submittedQ.SubmissionTime)</td>
+			            <td class="clickable-row">@Html.Raw(submittedQ.CustomerFirstName + " " + submittedQ.CustomerLastName)</td>
+			            <td class="clickable-row">@Html.Raw(submittedQ.CustomerAddress)</td>
+			            <td class="clickable-row">@Html.Raw(submittedQ.State)</td>
+			            <td class="clickable-row">@Html.Raw(submittedQ.CustomerPhone)</td>
+			            <td class="clickable-row">$@Html.Raw(submittedQ.Price)</td>
+		            </tr>
+
+		            <script>
+            			quotes[@submittedQ.Id]["drivers"] = [];
+            			quotes[@submittedQ.Id]["vehicles"] = [];
+            			@foreach (var driver in submittedQ.Drivers) {
+				            <text>
+                                quotes[@submittedQ.Id]["drivers"].push({
+                                    Name: '@Html.Raw(driver.FirstName + " " + driver.LastName + " " + driver.NameSuffix)',
+                                    Ssn: '@Html.Raw(driver.Ssn)',
+                                    Dob: '@Html.Raw(driver.Dob)',
+                                    LicenseNumber: '@Html.Raw(driver.LicenseNumber)',
+                                    LicenseState: '@Html.Raw(driver.LicenseState)',
+                                    SafeDrivingSchool: '@Html.Raw(driver.SafeDrivingSchool)',
+                                    LicenseStartDate: '@Html.Raw(driver.LicenseDateStart)'
+                                });
+                                </text>
+
+				            foreach (var vehicle in driver.Vehicles) {
+					            <text>
+                                    quotes[@submittedQ.Id]["vehicles"].push({
+                                        Vin: '@Html.Raw(vehicle.Vin)',
+                                        Make: '@Html.Raw(vehicle.Make)',
+                                        Model: '@Html.Raw(vehicle.CarModel)',
+                                        Year: '@Html.Raw(vehicle.Year)',
+                                        CurrentValue: '@Html.Raw(vehicle.CurrentValue)',
+                                        PrimaryDriver: '@Html.Raw(driver.FirstName + " " + driver.LastName + " " + driver.NameSuffix)',
+                                        AnnualMileage: '@Html.Raw(vehicle.AnnualMiles)',
+                                        DaysDrivenPerWeek: '@Html.Raw(vehicle.DaysDrivenPerWeek)',
+                                        MilesDrivenToWork: '@Html.Raw(vehicle.MilesDrivenToWork)',
+                                        AntiTheft: '@Html.Raw(vehicle.AntiTheft)',
+                                        AntiLockBrakes: '@Html.Raw(vehicle.HasAntilockBrakingSystem)',
+                                        DaytimeSavingLights: '@Html.Raw(vehicle.HasDaytimeRunningLights)',
+                                        PassiveRestraints: '@Html.Raw(vehicle.PassiveRestraints)',
+                                        ReducedUsedDisc: '@Html.Raw(vehicle.ReduceUse)'
+                                    });
+                                    </text>
+				            }
+			            }
+            		</script>
+	            }
+	            </tbody>
+            </table>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+	$(document).ready(function () {
+		$("#home").toggleClass("active");
+		$("#main-menu li").click(function () {
+			$(this).toggleClass("active");
+		})
+	});
+</script>
+
+@* Modal div to present quote information *@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Quote Information</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                Information of agent goes here.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+	$(document).ready(function () {
+		$(".clickable-row").click(function () {
+			$("#myModal").modal("show");
+			var quoteId = $(this).closest('tr').attr("value");
+			var dateCreated = $(this).closest('tr').find('td:eq(0)').text();
+			var name = $(this).closest('tr').find('td:eq(1)').text();
+			var address = $(this).closest('tr').find('td:eq(2)').text();
+			var state = $(this).closest('tr').find('td:eq(3)').text();
+			var phone = $(this).closest('tr').find('td:eq(4)').text();
+			var price = $(this).closest('tr').find('td:eq(5)').text();
+			var ssn = quotes[quoteId].CustomerSsn;
+			var dob = quotes[quoteId].CustomerDob;
+			var prevCarrier = quotes[quoteId].PreviousCarrier;
+			var claimsMade = quotes[quoteId].ClaimInLastFive;
+			var movingViolations = quotes[quoteId].MovingViolation;
+			var forceDisc = quotes[quoteId].ForceMultiDiscount;
+			var price = quotes[quoteId].Price;
+
+			$("#myModalLabel").text("Quote Information for " + name);
+			var modalContent = "<div class='panel-group' id='accordion'>"
+				+ "<div class='panel panel-default' id='panel1'>"
+				+ "<div class='panel-heading collapsed' data-toggle='collapse' data-target='#collapsePolicyHolder' >"
+				+ "<span class='panel-title'>"
+				+ "Policy Holder"
+				+ "</span>"
+				+ "</div>"
+				+ "<div id='collapsePolicyHolder' class='panel-collapse collapse'>"
+				+ "<div class='panel-body'>"
+				+ "<table class='table table-striped'>"
+				+ "<thead>"
+				+ "<tr>"
+				+ "<th>Quote ID:</th>"
+				+ "<td>" + quoteId + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Date Created:</th>"
+				+ "<td>" + dateCreated + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Customer Name:</th>"
+				+ "<td>" + name + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Date of Birth:</th>"
+				+ "<td>" + dob + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Address:</th>"
+				+ "<td>" + address + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>State:</th>"
+				+ "<td>" + state + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Phone:</th>"
+				+ "<td>" + phone + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Previous Carrier:</th>"
+				+ "<td>" + prevCarrier + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Made Claims in Last 5 Years:</th>"
+				+ "<td>" + claimsMade + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Any Moving Violations in Last 5 Years:</th>"
+				+ "<td>" + movingViolations + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Force Multi-car Discount:</th>"
+				+ "<td>" + forceDisc + "</td>"
+				+ "</tr>"
+				+ "</tbody>"
+				+ "</table>"
+				+ "</div>"
+				+ "</div>"
+				+ "</div>"
+
+				+ "<div class='panel panel-default' id='panel2'>"
+				+ "<div class='panel-heading collapsed' data-toggle='collapse' data-target='#collapseDriverMain'>"
+				+ "<span class='panel-title'>"
+				+ "Drivers"
+				+ "</span>"
+				+ "</div>"
+				+ "<div id='collapseDriverMain' class='panel-collapse collapse'>"
+				+ "<div class='panel-body'>"
+				+ "<table class='table'>"
+				+ "<tbody>";
+
+			if(quotes[quoteId].drivers.length != 0){
+				for (var i = 0; i < quotes[quoteId].drivers.length; i++) {
+					var driverName = quotes[quoteId].drivers[i].Name;
+					var driverSsn = quotes[quoteId].drivers[i].Ssn;
+					var driverDob = quotes[quoteId].drivers[i].Dob;
+					var licenseNum = quotes[quoteId].drivers[i].LicenseNumber;
+					var licenseState = quotes[quoteId].drivers[i].LicenseState;
+					var safeDriving = quotes[quoteId].drivers[i].SafeDrivingSchool;
+					var licenseStartDate = quotes[quoteId].drivers[i].LicenseStartDate;
+					var position = licenseStartDate.lastIndexOf("/");
+					var licenseYr = licenseStartDate.substring ((position + 1), (position + 5));
+					var currYear = new Date().getFullYear();
+					var lessThanThree;
+
+					if((currYear - licenseYr) < 3){
+					    lessThanThree = "True";
+					} else {
+					    lessThanThree = "False";
+					}
+
+					modalContent = modalContent
+						+ "<tr>"
+						+ "<th>Driver Name:</th>"
+						+ "<td>" + driverName + "</td>"
+						+ "</tr>"
+						+ "<tr>"
+						+ "<th>SSN:</th>"
+						+ "<td>" + driverSsn + "</td>"
+						+ "</tr>"
+						+ "<tr>"
+						+ "<th>Date of Birth:</th>"
+						+ "<td>" + driverDob + "</td>"
+						+ "</tr>"
+						+ "<tr>"
+						+ "<th>Driver License Number:</th>"
+						+ "<td>" + licenseNum + "</td>"
+						+ "</tr>"
+						+ "<tr>"
+						+ "<th>Driver License State:</th>"
+						+ "<td>" + licenseState + "</td>"
+						+ "</tr>"
+						+ "<tr>"
+						+ "<th>Attended Safe Driving School:</th>"
+						+ "<td>" + safeDriving + "</td>"
+						+ "</tr>"
+				        + "<tr>"
+				        + "<th>Less than 3 Years Driving:</th>"
+				        + "<td>" + lessThanThree + "</td>"
+				        + "</tr>";
+				}
+			} else {
+				modalContent = modalContent
+					+ "<tr> There are no Drivers under this quote.</tr>"
+			}
+
+			modalContent = modalContent
+				+ "</tbody>"
+				+ "</table>"
+				+ "</div>"
+				+ "</div>"
+				+ "</div>" 
+				+ "<div class='panel panel-default' id='panel3'>"
+				+ "<div class='panel-heading collapsed' data-toggle='collapse' data-target='#collapseVehicle'>"
+				+ "<span class='panel-title'>"
+				+ "Vehicles"
+				+ "</a>"
+				+ "</span>"
+				+ "</div>"
+				+ "<div id='collapseVehicle' class='panel-collapse collapse'>"
+				+ "<div class='panel-body'>"
+				+ "<table class='table'>"
+				+ "<tbody>";
+
+			if(typeof quotes[quoteId].vehicles != "undefined"){
+				if(quotes[quoteId].vehicles.length != 0){
+					for (var i = 0; i < quotes[quoteId].vehicles.length; i++){
+						var vin = quotes[quoteId].vehicles[i].Vin;
+						var make = quotes[quoteId].vehicles[i].Make;
+						var model = quotes[quoteId].vehicles[i].Model;
+						var year = quotes[quoteId].vehicles[i].Year;
+						var currentValue = quotes[quoteId].vehicles[i].CurrentValue;
+						var priDriver = quotes[quoteId].vehicles[i].PrimaryDriver;
+						var annualMileage = quotes[quoteId].vehicles[i].AnnualMileage;
+						var daysDriven = quotes[quoteId].vehicles[i].DaysDrivenPerWeek;
+						var milesDriven = quotes[quoteId].vehicles[i].MilesDrivenToWork;
+						var antiTheft = quotes[quoteId].vehicles[i].AntiTheft;
+						var antiLockBrakes = quotes[quoteId].vehicles[i].AntiLockBrakes;
+						var daytimeSavingLights = quotes[quoteId].vehicles[i].DaytimeSavingLights;
+						var passiveRestraints = quotes[quoteId].vehicles[i].PassiveRestraints;
+						var reducedUsedDisc = quotes[quoteId].vehicles[i].ReducedUsedDisc;
+
+						modalContent = modalContent
+							+ "<tr>"
+							+ "<th>VIN:</th>"
+							+ "<td>" + vin + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Make:</th>"
+							+ "<td>" + make + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Model:</th>"
+							+ "<td>" + model + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Year:</th>"
+							+ "<td>" + year + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Current Value:</th>"
+							+ "<td>" + currentValue + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Primary Driver:</th>"
+							+ "<td>" + priDriver + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Annual Mileage:</th>"
+							+ "<td>" + annualMileage + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Days Driven Per Week:</th>"
+							+ "<td>" + daysDriven + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Miles Driven to Work:</th>"
+							+ "<td>" + milesDriven + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Anti-Theft:</th>"
+							+ "<td>" + antiTheft + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Anti-Lock Brakes:</th>"
+							+ "<td>" + antiLockBrakes + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Daytime Running Light:</th>"
+							+ "<td>" + daytimeSavingLights + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Passive Restraints:</th>"
+							+ "<td>" + passiveRestraints + "</td>"
+							+ "</tr>"
+							+ "<tr>"
+							+ "<th>Reduced Used Discount:</th>"
+							+ "<td>" + reducedUsedDisc + "</td>"
+							+ "</tr>"
+					}
+				} else {
+					modalContent = modalContent
+						+ "<tr> There are no Vehicles under this quote.</tr>"
+				}
+			} else {
+				modalContent = modalContent
+					+ "<tr> There are no Vehicles under this quote.</tr>"
+			}
+
+			modalContent = modalContent
+				+ "</tbody>"
+				+ "</table>"
+				+ "</div>"
+				+ "</div>"
+				+ "</div>"
+
+				+ "<div class='panel panel-default' id='panel2'>"
+				+ "<div class='panel-heading no-pointer'>"
+				+ "<span class='panel-title'>"
+				+ "Total Policy Amount: $" + price
+				+ "</span>"
+				+ "</div>"
+				+ "</div>";
+            
+			$("#myModalBody").html(modalContent);
+
+		});
+	});
+</script>

@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="AIAUniversalApp.Views.Search_Results"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AIAUniversalApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="WhiteSmoke">
+        <local:LeftNavigationBar HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Center" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" FontFamily="Segoe UI" FontWeight="SemiLight" Text="Search Results" FontSize="72" Foreground="Black"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <ListViewHeaderItem Width="100" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center">Date Created</ListViewHeaderItem>
+                <ListViewHeaderItem Width="150" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center">Customer Name</ListViewHeaderItem>
+                <ListViewHeaderItem Width="200" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center">Address</ListViewHeaderItem>
+                <ListViewHeaderItem Width="100" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center">State</ListViewHeaderItem>
+                <ListViewHeaderItem Width="100" Foreground="Black" FontWeight="Bold" VerticalAlignment="Center">Price ($)</ListViewHeaderItem>
+            </StackPanel>
+
+            <ScrollViewer VerticalScrollBarVisibility="Visible" VerticalScrollMode="Enabled" Grid.Row="2" Height="500" >
+                <ListView x:Name="ListQuotes" Grid.Row="3">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Width="100" Text="{Binding SubmissionTime}" Foreground="Black" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Width="150" Text="{Binding CustomerName}" Foreground="Black" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Width="200" Text="{Binding CustomerAddress}" Foreground="Black" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Width="100" Text="{Binding State}" Foreground="Black" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock Width="100" Text="{Binding Price}" Foreground="Black" VerticalAlignment="Center"></TextBlock>
+
+                                <!--<TextBlock Text="{Binding CustomerDob, Mode=TwoWay}" Foreground="Black"></TextBlock>-->
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+            
+        </Grid>
+    </Grid>
+</Page>

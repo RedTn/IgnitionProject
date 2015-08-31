@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7a7419ac198c44438aba0d30af20b5a4" Name="Diagram1" ZoomLevel="73" DisplayType="true" >
+        <EntityTypeShape EntityType="AIAModelDiagram.User" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="AIAModelDiagram.Quote" Width="1.5" PointX="3" PointY="1.125" />
+        <AssociationConnector Association="AIAModelDiagram.UserQuote" />
+        <EntityTypeShape EntityType="AIAModelDiagram.Rule" Width="1.5" PointX="10" PointY="1.125" />
+        <EntityTypeShape EntityType="AIAModelDiagram.Driver" Width="1.5" PointX="7.75" PointY="1.125" />
+        <EntityTypeShape EntityType="AIAModelDiagram.Vehicle" Width="1.75" PointX="5.25" PointY="1" />
+        <AssociationConnector Association="AIAModelDiagram.QuoteVehicle" />
+        <AssociationConnector Association="AIAModelDiagram.QuoteDriver" />
+        <AssociationConnector Association="AIAModelDiagram.VehicleDriver" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

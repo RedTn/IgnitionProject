@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="AIAUniversalApp.Views.Registration"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AIAUniversalApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:validation="using:WinRTXamlToolkit.Controls.Extensions"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    
+
+    <Grid Background="WhiteSmoke">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Foreground="Black" Grid.Row="0" Grid.Column="0" TextWrapping="Wrap" Text="Registration" HorizontalAlignment="Center" FontSize="30"/>
+            <TextBlock Foreground="#FFF24545" Grid.Column="1" Grid.Row="1" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="All Fields are Required for Submission"/>
+         
+        </Grid>
+        
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Foreground="Black" Grid.Column="0" Grid.Row="0" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="First Name"/>
+            <TextBlock Foreground="Black" Grid.Column="0" Grid.Row="1" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="Last Name"/>
+            <TextBlock Foreground="Black" Grid.Column="0" Grid.Row="2" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="Username"/>
+            <TextBlock Foreground="Black" Grid.Column="0" Grid.Row="3" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"  Text="Email"/>
+            <TextBlock Foreground="Black" Grid.Column="0" Grid.Row="4" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Text="Password"/>
+            <TextBlock Foreground="Black" Grid.Column="0" Grid.Row="5" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20"  Text="Confirm Password"/>
+            <TextBox x:Name="firstName" BorderBrush="Black" Grid.Column="1" Grid.Row="0"  Padding="10" Width="150"  VerticalAlignment="Top" Text="{Binding FirstName, Mode=TwoWay}" validation:FieldValidationExtensions.Format="NonEmpty"/>
+            <TextBox BorderBrush="Black" Grid.Column="1" Grid.Row="1"  Padding="10" Width="150" VerticalAlignment="Top" Text="{Binding LastName, Mode=TwoWay}" validation:FieldValidationExtensions.Format="NonEmpty"/>
+            <TextBox BorderBrush="Black" Grid.Column="1" Grid.Row="2"  Padding="10" Width="150" VerticalAlignment="Top" Text="{Binding UserName, Mode=TwoWay}" validation:FieldValidationExtensions.Format="NonEmpty"/>
+            <TextBox BorderBrush="Black" Grid.Column="1" Grid.Row="3"  Padding="10" Width="150"  VerticalAlignment="Top" Text="{Binding Email, Mode=TwoWay}" validation:FieldValidationExtensions.Format="NonEmpty"/>
+            <PasswordBox BorderBrush="Black"  Grid.Column="1" Grid.Row="4"  Padding="10" Width="150" VerticalAlignment="Top" validation:FieldValidationExtensions.Format="IsStrongPassword"/>
+            <PasswordBox BorderBrush="Black" Grid.Column="1" Grid.Row="5"  Padding="10" Width="150"  VerticalAlignment="Top" validation:FieldValidationExtensions.Format="IsStrongPassword"/>
+
+        </Grid>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button BorderBrush="Black" Foreground="Black" Grid.Column="0" Grid.Row="0" Content="Register" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Register_Click"/>
+
+        </Grid>
+    </Grid>
+</Page>

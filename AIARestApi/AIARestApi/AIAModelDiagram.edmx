@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AIADbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="AIADbModelStoreContainer">
+    <EntitySet Name="Drivers" EntityType="AIADbModel.Store.Drivers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Quotes" EntityType="AIADbModel.Store.Quotes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Rules" EntityType="AIADbModel.Store.Rules" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AIAUsers" EntityType="AIADbModel.Store.AIAUsers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Vehicles" EntityType="AIADbModel.Store.Vehicles" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_QuoteDriver" Association="AIADbModel.Store.FK_QuoteDriver">
+      <End Role="Quotes" EntitySet="Quotes" />
+      <End Role="Drivers" EntitySet="Drivers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VehicleDriver" Association="AIADbModel.Store.FK_VehicleDriver">
+      <End Role="Drivers" EntitySet="Drivers" />
+      <End Role="Vehicles" EntitySet="Vehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_QuoteVehicle" Association="AIADbModel.Store.FK_QuoteVehicle">
+      <End Role="Quotes" EntitySet="Quotes" />
+      <End Role="Vehicles" EntitySet="Vehicles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserQuote" Association="AIADbModel.Store.FK_UserQuote">
+      <End Role="Users" EntitySet="AIAUsers" />
+      <End Role="Quotes" EntitySet="Quotes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Drivers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameSuffix" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="MiddleInitial" Type="nvarchar" Nullable="true" MaxLength="1" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Phone" Type="nvarchar" Nullable="false" MaxLength="14" />
+    <Property Name="Dob" Type="datetime" Nullable="false" />
+    <Property Name="Ssn" Type="nvarchar" Nullable="false" MaxLength="11" />
+    <Property Name="Gender" Type="nchar" Nullable="false" MaxLength="1" />
+    <Property Name="Relationship" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="LicenseState" Type="nchar" Nullable="false" MaxLength="2" />
+    <Property Name="LicenseNumber" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="LicenseDateStart" Type="datetime" Nullable="false" />
+    <Property Name="SafeDrivingSchool" Type="bit" Nullable="false" />
+    <Property Name="QuoteId" Type="bigint" Nullable="false" />
+    <Property Name="NonDriver" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Quotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AIAUserId" Type="int" Nullable="false" />
+    <Property Name="Price" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Submitted" Type="bit" Nullable="false" />
+    <Property Name="SubmissionTime" Type="datetime" Nullable="false" />
+    <Property Name="State" Type="nchar" Nullable="false" MaxLength="2" />
+    <Property Name="MovingViolation" Type="bit" Nullable="false" />
+    <Property Name="PreviousCarrier" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ClaimInLastFive" Type="bit" Nullable="false" />
+    <Property Name="CustomerFirstName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="CustomerLastName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="CustomerAddress" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="CustomerPhone" Type="nvarchar" Nullable="false" MaxLength="14" />
+    <Property Name="CustomerSsn" Type="nvarchar" Nullable="false" MaxLength="11" />
+    <Property Name="CustomerDob" Type="datetime" Nullable="false" />
+    <Property Name="ForceMultiDiscount" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Scope" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="State" Type="nchar" Nullable="false" MaxLength="2" />
+    <Property Name="DiscountPercentage" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="AIAUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="15" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="CanUseSystem" Type="int" Nullable="false" />
+    <Property Name="ApplicationUserId" Type="nvarchar" Nullable="false" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="Vehicles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Make" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="CarModel" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Mileage" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="CurrentValue" Type="int" Nullable="false" />
+    <Property Name="DaysDrivenPerWeek" Type="int" Nullable="false" />
+    <Property Name="Vin" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="AnnualMiles" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="HasDaytimeRunningLights" Type="bit" Nullable="false" />
+    <Property Name="HasAntilockBrakingSystem" Type="bit" Nullable="false" />
+    <Property Name="PassiveRestraints" Type="bit" Nullable="false" />
+    <Property Name="AntiTheft" Type="bit" Nullable="false" />
+    <Property Name="ReduceUse" Type="bit" Nullable="false" />
+    <Property Name="GarageDifferent" Type="bit" Nullable="false" />
+    <Property Name="QuoteId" Type="bigint" Nullable="false" />
+    <Property Name="MilesDrivenToWork" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="DriverId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_QuoteDriver">
+    <End Role="Quotes" Type="AIADbModel.Store.Quotes" Multiplicity="1" />
+    <End Role="Drivers" Type="AIADbModel.Store.Drivers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quotes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Drivers">
+        <PropertyRef Name="QuoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VehicleDriver">
+    <End Role="Drivers" Type="AIADbModel.Store.Drivers" Multiplicity="1" />
+    <End Role="Vehicles" Type="AIADbModel.Store.Vehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Drivers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehicles">
+        <PropertyRef Name="DriverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_QuoteVehicle">
+    <End Role="Quotes" Type="AIADbModel.Store.Quotes" Multiplicity="1" />
+    <End Role="Vehicles" Type="AIADbModel.Store.Vehicles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Quotes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vehicles">
+        <PropertyRef Name="QuoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserQuote">
+    <End Role="Users" Type="AIADbModel.Store.AIAUsers" Multiplicity="1" />
+    <End Role="Quotes" Type="AIADbModel.Store.Quotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Quotes">
+        <PropertyRef Name="AIAUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AIADbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Driver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameSuffix" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleInitial" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dob" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Ssn" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Relationship" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LicenseState" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LicenseNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LicenseDateStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SafeDrivingSchool" Type="Boolean" Nullable="false" />
+          <Property Name="QuoteId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Quote" Relationship="AIADbModel.FK_QuoteDriver" FromRole="Drivers" ToRole="Quotes" />
+          <NavigationProperty Name="Vehicles" Relationship="AIADbModel.FK_VehicleDriver" FromRole="Drivers" ToRole="Vehicles" />
+          <Property Name="NonDriver" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Quote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AIAUserId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Submitted" Type="Boolean" Nullable="false" />
+          <Property Name="SubmissionTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="MovingViolation" Type="Boolean" Nullable="false" />
+          <Property Name="PreviousCarrier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimInLastFive" Type="Boolean" Nullable="false" />
+          <Property Name="CustomerFirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerLastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerPhone" Type="String" MaxLength="14" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerSsn" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerDob" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ForceMultiDiscount" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Drivers" Relationship="AIADbModel.FK_QuoteDriver" FromRole="Quotes" ToRole="Drivers" />
+          <NavigationProperty Name="Vehicles" Relationship="AIADbModel.FK_QuoteVehicle" FromRole="Quotes" ToRole="Vehicles" />
+          <NavigationProperty Name="User" Relationship="AIADbModel.FK_UserQuote" FromRole="Quotes" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Rule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Scope" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DiscountPercentage" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AIAUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CanUseSystem" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Quotes" Relationship="Self.FK_UserQuote" FromRole="Users" ToRole="Quotes" />
+          <Property Name="ApplicationUserId" Type="String" Nullable="false" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Make" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CarModel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Mileage" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CurrentValue" Type="Int32" Nullable="false" />
+          <Property Name="DaysDrivenPerWeek" Type="Int32" Nullable="false" />
+          <Property Name="Vin" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AnnualMiles" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="HasDaytimeRunningLights" Type="Boolean" Nullable="false" />
+          <Property Name="HasAntilockBrakingSystem" Type="Boolean" Nullable="false" />
+          <Property Name="PassiveRestraints" Type="Boolean" Nullable="false" />
+          <Property Name="AntiTheft" Type="Boolean" Nullable="false" />
+          <Property Name="ReduceUse" Type="Boolean" Nullable="false" />
+          <Property Name="GarageDifferent" Type="Boolean" Nullable="false" />
+          <Property Name="QuoteId" Type="Int64" Nullable="false" />
+          <Property Name="MilesDrivenToWork" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="DriverId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Primary_Driver" Relationship="AIADbModel.FK_VehicleDriver" FromRole="Vehicles" ToRole="Drivers" />
+          <NavigationProperty Name="Quote" Relationship="AIADbModel.FK_QuoteVehicle" FromRole="Vehicles" ToRole="Quotes" />
+        </EntityType>
+        <Association Name="FK_QuoteDriver">
+          <End Role="Quotes" Type="Self.Quote" Multiplicity="1" />
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Drivers">
+              <PropertyRef Name="QuoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleDriver">
+          <End Role="Drivers" Type="Self.Driver" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drivers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="DriverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuoteVehicle">
+          <End Role="Quotes" Type="Self.Quote" Multiplicity="1" />
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="QuoteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserQuote">
+          <End Role="Users" Type="AIADbModel.AIAUser" Multiplicity="1" />
+          <End Role="Quotes" Type="Self.Quote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Quotes">
+              <PropertyRef Name="AIAUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AIADbEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="Drivers" EntityType="Self.Driver" />
+          <EntitySet Name="Quotes" EntityType="Self.Quote" />
+          <EntitySet Name="Rules" EntityType="Self.Rule" />
+          <EntitySet Name="AIAUsers" EntityType="AIADbModel.AIAUser" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <AssociationSet Name="FK_QuoteDriver" Association="Self.FK_QuoteDriver">
+            <End Role="Quotes" EntitySet="Quotes" />
+            <End Role="Drivers" EntitySet="Drivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleDriver" Association="Self.FK_VehicleDriver">
+            <End Role="Drivers" EntitySet="Drivers" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuoteVehicle" Association="Self.FK_QuoteVehicle">
+            <End Role="Quotes" EntitySet="Quotes" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserQuote" Association="Self.FK_UserQuote">
+            <End Role="Users" EntitySet="AIAUsers" />
+            <End Role="Quotes" EntitySet="Quotes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AIADbModelStoreContainer" CdmEntityContainer="AIADbEntities">
+    <EntitySetMapping Name="Drivers">
+      <EntityTypeMapping TypeName="IsTypeOf(AIADbModel.Driver)">
+        <MappingFragment StoreEntitySet="Drivers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameSuffix" ColumnName="NameSuffix" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Dob" ColumnName="Dob" />
+          <ScalarProperty Name="Ssn" ColumnName="Ssn" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+          <ScalarProperty Name="LicenseState" ColumnName="LicenseState" />
+          <ScalarProperty Name="LicenseNumber" ColumnName="LicenseNumber" />
+          <ScalarProperty Name="LicenseDateStart" ColumnName="LicenseDateStart" />
+          <ScalarProperty Name="SafeDrivingSchool" ColumnName="SafeDrivingSchool" />
+          <ScalarProperty Name="QuoteId" ColumnName="QuoteId" />
+          <ScalarProperty Name="NonDriver" ColumnName="NonDriver" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Quotes">
+      <EntityTypeMapping TypeName="IsTypeOf(AIADbModel.Quote)">
+        <MappingFragment StoreEntitySet="Quotes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AIAUserId" ColumnName="AIAUserId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Submitted" ColumnName="Submitted" />
+          <ScalarProperty Name="SubmissionTime" ColumnName="SubmissionTime" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="MovingViolation" ColumnName="MovingViolation" />
+          <ScalarProperty Name="PreviousCarrier" ColumnName="PreviousCarrier" />
+          <ScalarProperty Name="ClaimInLastFive" ColumnName="ClaimInLastFive" />
+          <ScalarProperty Name="CustomerFirstName" ColumnName="CustomerFirstName" />
+          <ScalarProperty Name="CustomerLastName" ColumnName="CustomerLastName" />
+          <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+          <ScalarProperty Name="CustomerPhone" ColumnName="CustomerPhone" />
+          <ScalarProperty Name="CustomerSsn" ColumnName="CustomerSsn" />
+          <ScalarProperty Name="CustomerDob" ColumnName="CustomerDob" />
+          <ScalarProperty Name="ForceMultiDiscount" ColumnName="ForceMultiDiscount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rules">
+      <EntityTypeMapping TypeName="IsTypeOf(AIADbModel.Rule)">
+        <MappingFragment StoreEntitySet="Rules">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Scope" ColumnName="Scope" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AIAUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(AIADbModel.AIAUser)">
+        <MappingFragment StoreEntitySet="AIAUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="CanUseSystem" ColumnName="CanUseSystem" />
+          <ScalarProperty Name="ApplicationUserId" ColumnName="ApplicationUserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicles">
+      <EntityTypeMapping TypeName="IsTypeOf(AIADbModel.Vehicle)">
+        <MappingFragment StoreEntitySet="Vehicles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Make" ColumnName="Make" />
+          <ScalarProperty Name="CarModel" ColumnName="CarModel" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Mileage" ColumnName="Mileage" />
+          <ScalarProperty Name="CurrentValue" ColumnName="CurrentValue" />
+          <ScalarProperty Name="DaysDrivenPerWeek" ColumnName="DaysDrivenPerWeek" />
+          <ScalarProperty Name="Vin" ColumnName="Vin" />
+          <ScalarProperty Name="AnnualMiles" ColumnName="AnnualMiles" />
+          <ScalarProperty Name="HasDaytimeRunningLights" ColumnName="HasDaytimeRunningLights" />
+          <ScalarProperty Name="HasAntilockBrakingSystem" ColumnName="HasAntilockBrakingSystem" />
+          <ScalarProperty Name="PassiveRestraints" ColumnName="PassiveRestraints" />
+          <ScalarProperty Name="AntiTheft" ColumnName="AntiTheft" />
+          <ScalarProperty Name="ReduceUse" ColumnName="ReduceUse" />
+          <ScalarProperty Name="GarageDifferent" ColumnName="GarageDifferent" />
+          <ScalarProperty Name="QuoteId" ColumnName="QuoteId" />
+          <ScalarProperty Name="MilesDrivenToWork" ColumnName="MilesDrivenToWork" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

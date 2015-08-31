@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="AIAUniversalApp.Views.PendingApproval"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AIAUniversalApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="WhiteSmoke">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Vertical">
+            <Image Grid.Row="0" Height="200" Source="/Assets/Images/AIA_logoSmall.png" HorizontalAlignment="Center"  VerticalAlignment="Top" />
+
+            <TextBlock TextAlignment="Center" Foreground="Black" TextWrapping="WrapWholeWords" FontSize="20" Height="58" Width="275" >Please wait for your manager to approve your request.</TextBlock>
+            <Button Click="Button_Click" BorderBrush="Black" Foreground="Black" HorizontalAlignment="Center">Return to Login</Button>
+        </StackPanel>
+
+    </Grid>
+</Page>

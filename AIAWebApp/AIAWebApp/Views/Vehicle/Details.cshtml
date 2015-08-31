@@ -1,0 +1,146 @@
+﻿@model AIADataModels.Vehicle
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Vehicle</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Make)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Make)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mileage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mileage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DaysDrivenPerWeek)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DaysDrivenPerWeek)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnnualMiles)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnnualMiles)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasDaytimeRunningLights)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasDaytimeRunningLights)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HasAntilockBrakingSystem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HasAntilockBrakingSystem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PassiveRestraints)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PassiveRestraints)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AntiTheft)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AntiTheft)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReduceUse)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReduceUse)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GarageDifferent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GarageDifferent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MilesDrivenToWork)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MilesDrivenToWork)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quote.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quote.Status)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

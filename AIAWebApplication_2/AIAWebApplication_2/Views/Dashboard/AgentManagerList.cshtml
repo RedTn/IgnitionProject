@@ -1,0 +1,228 @@
+﻿@model AIAWebApplication_2.Models.DashboardViewModel
+@{
+	Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+	ViewBag.Title = "AgentManagerList";
+}
+
+<h2>Agents and Managers</h2>
+
+<script>
+	$(document).ready(function () {
+		$(".clickable-row").click(function () {
+			$("#myModal").modal("show");
+			var quoteId = $(this).closest('tr').find('td:eq(0)').text();
+			$("#myModalLabel").text("Agent Information for " + quoteId);
+		});
+	});
+</script>
+
+
+<div class="tabs">
+	<div class="tab">
+		<input type="radio" id="agentsTab" name="agent-managers" checked />
+		<label for="agentsTab">Agents</label>
+		<div class="tabContent">
+			@if (Model.AllAgentsList.Count() < 1) {
+				<p>There are no agents to show.</p>
+			}
+			else {
+				<table class="table table-striped welcome-table">
+					<thead>
+						<tr>
+							<th>Agent ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<script>
+							var agents = {};
+						</script>
+						@foreach (var agent in Model.AllAgentsList) {
+							<script>
+								agents[@agent.Id] = {};
+								agents[@agent.Id]["FirstName"] = "@Html.Raw(agent.FirstName)";
+								agents[@agent.Id]["LastName"] = "@Html.Raw(agent.LastName)";
+								agents[@agent.Id]["UserName"] = "@Html.Raw(agent.UserName)";
+								agents[@agent.Id]["CanUseSystem"] = "@Html.Raw(agent.CanUseSystem)";
+							</script>
+							<tr value="@agent.Id">
+								<td class="clickable-row">@Html.Raw(agent.Id)</td>
+								<td class="clickable-row">@Html.Raw(agent.FirstName)</td>
+								<td class="clickable-row">@Html.Raw(agent.LastName)</td>
+								<td>
+									<select>
+										@if (agent.CanUseSystem == 0) {
+											<option value="0">Pending</option>
+											<option value="1">Approved</option>
+											<option value="2">Rejected</option>
+										}
+										else if (agent.CanUseSystem == 1) {
+											<option value="1">Approved</option>
+											<option value="2">Rejected</option>
+											<option value="0">Pending</option>
+										}
+										else {
+											<option value="2">Rejected</option>
+											<option value="0">Pending</option>
+											<option value="1">Approved</option>
+										}
+									</select>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			}
+
+		</div>
+	</div>
+	<div class="tab">
+		<input type="radio" id="managersTab" name="agent-managers" />
+		<label for="managersTab">Managers</label>
+		<div class="tabContent">
+			@if (Model.AllAgentsList.Count() < 1) {
+				<p>There are no agents to show.</p>
+			}
+			else {
+				<table class="table table-striped welcome-table">
+					<thead>
+						<tr>
+							<th>Agent ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Status</th>
+						</tr>
+					</thead>
+					<tbody>
+						<script>
+							var agents = {};
+						</script>
+						@foreach (var agent in Model.AllAgentsList) {
+							<script>
+								agents[@agent.Id] = {};
+								agents[@agent.Id]["FirstName"] = "@Html.Raw(agent.FirstName)";
+								agents[@agent.Id]["LastName"] = "@Html.Raw(agent.LastName)";
+								agents[@agent.Id]["UserName"] = "@Html.Raw(agent.UserName)";
+								agents[@agent.Id]["CanUseSystem"] = "@Html.Raw(agent.CanUseSystem)";
+							</script>
+							<tr value="@agent.Id">
+								<td class="clickable-row">@Html.Raw(agent.Id)</td>
+								<td class="clickable-row">@Html.Raw(agent.FirstName)</td>
+								<td class="clickable-row">@Html.Raw(agent.LastName)</td>
+								<td>
+									<select>
+										@if (agent.CanUseSystem == 0) {
+											<option value="0">Pending</option>
+											<option value="1">Approved</option>
+											<option value="2">Rejected</option>
+										}
+										else if (agent.CanUseSystem == 1) {
+											<option value="1">Approved</option>
+											<option value="2">Rejected</option>
+											<option value="0">Pending</option>
+										}
+										else {
+											<option value="2">Rejected</option>
+											<option value="0">Pending</option>
+											<option value="1">Approved</option>
+										}
+									</select>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			}
+
+		</div>
+	</div>
+</div>
+
+
+@* Modal div to present agent/manager information *@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">User Information</h4>
+			</div>
+			<div class="modal-body" id="myModalBody">
+				Information of agent goes here.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function() {
+		$(".clickable-row").click(function() {
+			$("#myModal").modal("show");
+			var userId = $(this).closest('tr').attr("value");
+			var agentId = $(this).closest('tr').find('td:eq(0)').text();
+			var firstName = $(this).closest('tr').find('td:eq(1)').text();
+			var lastName = $(this).closest('tr').find('td:eq(2)').text();
+			var userName = agents[agentId].UserName;
+
+
+			if (agents[agentId].CanUseSystem == 1) {
+				var canUseSystem = "Approved";
+			}
+			else if (agents[agentId].CanUseSystem == 2) {
+				var canUseSystem = "Rejected";
+			} else {
+				var canUseSystem = "Pending";
+			}
+
+			$("#myModalLabel").text("Agent Information for " + firstName + " " + lastName);
+			var modalContent = "<div class='panel panel-default' id='panel1'>"
+				+ "<span class='panel-title'>"
+				+ ""
+				+ "</span>"
+				+ "</div>"
+				+ "<div class='panel-body'>"
+				+ "<table class='table table-striped'>"
+				+ "<thead>"
+				+ "<tr>"
+				+ "<th>User ID:</th>"
+				+ "<td>" + userId + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Username:</th>"
+				+ "<td>" + userName + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<th>Status:</th>"
+				+ "<td>" + canUseSystem + "</td>"
+				+ "</tr>"
+				+ "</tbody>"
+				+ "</table>"
+				+ "</div>"
+				+ "</div>";
+
+			modalContent = modalContent
+				+ "</tbody>"
+				+ "</table>"
+				+ "</div>"
+				+ "</div>";
+
+			$("#myModalBody").html(modalContent);
+		});
+	})
+</script>
+
+@* Highlighting the tab on the left when the view is displayed *@
+<script>
+	$(document).ready(function () {
+		$("#agents-managers").toggleClass("active");
+		$("#main-menu li").click(function () {
+			$(this).toggleClass("active");
+		});
+	});
+</script>
+

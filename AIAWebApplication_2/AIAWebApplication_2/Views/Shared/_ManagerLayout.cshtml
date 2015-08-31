@@ -1,0 +1,62 @@
+﻿@using System
+@using System.Web.UI.WebControls
+
+@{
+	string CurrentURL = Request.Url.AbsoluteUri.ToLower();
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	@Scripts.Render("~/bundles/jquery")
+	@if (IsSectionDefined("AddToHead")) {
+		@RenderSection("AddToHead", required: false)
+	}
+</head>
+<body>
+	<div class="top-bar">
+		<div class="container">
+			<div class="row">
+				<div class="app-title">
+					<img class="logoImage" src="~/Images/AIA_logoSmallOneLine.png" />
+				</div>
+				<div class="login-links">@Html.Partial("_LoginPartial")</div>
+			</div>
+		</div>
+	</div>
+	@if (!CurrentURL.Contains("/account/login") && !CurrentURL.Contains("/account/register") && !CurrentURL.Contains("/account/registermanager")) {
+		<div class="sidebar-wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2 left-sidebar">
+						<nav class="main-nav">
+							<ul class="main-menu" id="main-menu">
+								<li id="main">@Html.ActionLink("Dashboard", "Main", "Dashboard", null, new { @class = "hyperlink" })</li>
+								<li id="agents-managers">@Html.ActionLink("Agents & Managers", "AgentManagerList", "Dashboard", null, new { @class = "hyperlink" })</li>
+								<li id="manager-search">@Html.ActionLink("Search", "ManagerSearch", "Dashboard", null, new { @class = "hyperlink" })</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+	<div class="container body-content">
+		@RenderBody()
+		<hr />
+		<footer>
+			<p>&copy; @DateTime.Now.Year - AIA Inc.</p>
+		</footer>
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+</body>
+</html>

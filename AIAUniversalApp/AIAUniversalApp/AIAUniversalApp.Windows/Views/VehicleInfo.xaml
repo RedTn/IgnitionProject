@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="AIAUniversalApp.Views.VehicleInfoPage2"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AIAUniversalApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <local:TopNavBar Padding="10" VerticalAlignment="Top" Loaded="TopNavBar_Loaded"/>
+        <local:LeftNavBar HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+         
+
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" FontFamily="Segoe UI" FontWeight="SemiLight" Text="Vehicle Information" FontSize="48" />
+            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Type in vehicle information" FontSize="24" FontFamily="Segoe UI" FontWeight="SemiLight" SelectionChanged="TextBlock_SelectionChanged" Padding="0,0,50,0" />
+            <TextBlock Grid.Row="3" Grid.Column="0"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="VIN" VerticalAlignment="Center" FontSize="36" FontFamily="Segoe UI" FontWeight="SemiLight" Padding="0" />
+            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Vin}" Padding="125,0" />
+            <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Make" FontSize="36" FontFamily="Segoe UI" FontWeight="SemiLight"/>
+            <TextBox Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Make}" Padding="125,0" />
+            <TextBlock Grid.Row="5" Grid.Column="0"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="Model" FontSize="36" FontFamily="Segoe UI" FontWeight="SemiLight"/>
+            <TextBox Grid.Row="5" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Model}" Padding="125,0" />
+            <TextBlock Grid.Row="6" Grid.Column="0"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="Year" FontSize="36" FontFamily="Segoe UI" FontWeight="SemiLight"/>
+            <TextBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Year}" Padding="125,0"/>
+            <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Mileage" FontSize="36" FontFamily="Segoe UI" FontWeight="SemiLight"/>
+            <TextBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Mileage}" Padding="125,0" />
+            <Button Grid.Row ="8" Grid.Column="2" Content="Next" HorizontalAlignment="Right"/>
+
+        </Grid>
+
+    </Grid>
+</Page>
